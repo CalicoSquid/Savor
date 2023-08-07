@@ -1,6 +1,7 @@
-
 import { useState, useEffect } from "react"
+
 import './SCSS/index.scss';
+
 import Main from './Components/Main';
 import checkPasswordStrength from "./Utilities/checkPassword";
 import isAuthenticated from "./Utilities/auth";
@@ -146,16 +147,16 @@ function App() {
   const stateProps = {
     isLoggedIn,
     formData,
-  loginError,
-  showLoginForm,
-  passwordStrength,
-  savedRecipes,
-  userData,
-  recipeData,
-  errorMessage,
-  successMessage,
-  imgToDownload,
-  loadingImage,
+    loginError,
+    showLoginForm,
+    passwordStrength,
+    savedRecipes,
+    userData,
+    recipeData,
+    errorMessage,
+    successMessage,
+    imgToDownload,
+    loadingImage,
     setIsLoggedIn,
     setFormData,
     handleLoginChange,
