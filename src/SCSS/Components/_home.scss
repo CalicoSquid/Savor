@@ -1,0 +1,118 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30%;
+    height: 80%;
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right:0;
+    padding-inline: 2rem;
+    padding-block: 1rem;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    scrollbar-width: none;
+        -ms-overflow-style: none; 
+         
+        &::-webkit-scrollbar {
+            display: none;
+          }
+
+   
+    
+    input {
+        @include input;
+        padding-inline: 0.5rem;
+        width: 60%;
+        font-size: 1rem;
+    }
+
+    .clear-search {
+        cursor: pointer;
+    }
+    
+
+    .pagify {
+
+        .pagify-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            button {
+                @include gray-button;
+            }
+        }
+    }
+
+    .recipe-image-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 1rem;
+        //border: 1px solid red;
+
+        .recipe-img-wrapper {
+            background-color: #f0f0f0;
+            position: relative;
+
+            .recipe-img {
+                height: 100%;
+                width: 100%;
+                aspect-ratio: 1/1;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                border-radius: 0.2rem;
+                object-fit: cover;
+                cursor: pointer;
+            }
+
+            .favorite {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 15%;
+                width: 15%;
+                cursor: pointer;
+                z-index: 9999;
+                //background-color: #333333;
+                //border-radius: 5px;
+            }
+
+            button {
+                @include black-button;
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 0;
+            }
+
+            p {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                max-height: 50%;
+                background: hsla(0, 100%, 100%, 0.5);
+                backdrop-filter: blur(1rem);
+                padding: 1rem;
+                //white-space: nowrap; 
+                overflow: hidden; 
+                text-overflow: ellipsis; 
+
+            }
+
+            
+        }
+    }
+
+    .saved {
+        @include title;
+        font-weight: bold;
+    }
+
+    .logout {
+        @include black-button;
+        justify-self: flex-end;
+    }
+}

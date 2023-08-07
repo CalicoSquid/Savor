@@ -1,0 +1,28 @@
+
+*  {
+  margin: 0;
+  padding: 0;
+  //box-sizing: border-box;
+  font-family: Raleway, sans-serif;
+}
+
+.App {
+    text-align: center;
+    font-weight: 400;
+    line-height: 1.45;
+    margin: 0px;
+    text-rendering: optimizelegibility;
+    height: 100%;
+  }
+
+  .green {
+    color: #4CAF50
+  }
+
+  .light-gray {
+    color: lightgrey
+  }
+
+  .error {
+    color: red;
+  }

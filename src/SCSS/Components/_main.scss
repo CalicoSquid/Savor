@@ -1,0 +1,167 @@
+.main {
+    display: flex;
+    width: 100%;
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-right: 3px solid lightgray;
+        width: 30%;
+        scrollbar-width: none;
+        -ms-overflow-style: none; 
+        
+         
+        &::-webkit-scrollbar {
+            display: none;
+          }
+
+        .title-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #fff;
+            padding-block: 0.7rem;
+            width: 30%;
+            //height: 16%;
+            border-right: 3px solid lightgray;
+            z-index: 1000;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+
+
+            .logo-text {
+
+                .logo-title {
+                    @include title;
+                    font-size: 4rem;
+                }
+            }
+        }
+
+        .sidebar-info {
+            padding: 2rem;
+            margin-top: 140px;
+            //font-size: 1.5rem;
+
+            .side-header {
+                font-family: Lora, serif;
+                font-size: 1.7rem;
+            }
+
+            .recipe-form {     
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                small {
+                    text-align: left;
+                    margin-bottom: -18px;
+                    font-weight: bold;
+                    font-size: 0.7rem;
+                }
+
+
+                input, textarea {
+                    @include input;
+                    
+                }
+
+                .times-wrapper {
+                    
+                    .times {
+                        display: flex;
+                        gap: 0.5rem;
+                        justify-content: space-between;
+                        align-items: flex-end;
+                        margin-block: 0.5rem;
+    
+                        .time-col {
+                            width: 25%;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            gap: 1rem;
+    
+                            input {
+                                border: none;
+                                font-size: 1rem;
+                                border-bottom: 1px solid gray;
+                            }
+                        } 
+                    }
+                }
+
+                button {
+                    @include gray-button;
+                }
+            }
+
+        }
+
+        .form-buttons {
+            //border: 1px solid red;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.5rem;
+            position: relative;
+
+            .img-wrapper {
+                background-color: #f0f0f0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                    aspect-ratio: 1/1;
+                    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                    border-radius: 0.2rem;
+                    object-fit: cover;
+                    cursor: pointer;
+                }
+            }
+
+            .error {
+                position: absolute;
+                width: 100%;
+
+            }
+
+            
+
+            
+        }
+
+        
+        
+
+        .save {
+            @include green-button;
+            width: 100%;
+
+            &:hover {
+                background-color: #3e8f41 !important;
+            }
+        }
+
+    }
+
+
+    
+}

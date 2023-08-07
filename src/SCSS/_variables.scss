@@ -1,0 +1,72 @@
+
+$green-theme: #4CAF50;
+
+$input-border: 1px solid green;
+
+$box-shadow-main: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+
+
+@mixin title {
+    color: #333333;
+    text-decoration: underline;
+    text-decoration-color: #4CAF50;
+    font-family: Lora, serif;
+}
+
+@mixin black-button {
+    padding: 0.5rem;
+    background-color: #333333;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    box-shadow: $box-shadow-main;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #000;
+    }
+}
+
+@mixin green-button {
+    padding: 0.5rem;
+    background-color: #4CAF50;
+    border: none;
+    margin: 3px;
+    font-size: 1rem;
+    border-radius: 5px;
+    color: white;
+    margin-top: 1rem;
+    cursor: pointer;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    &:hover {
+        background-color: #3e8f41;
+    }
+            
+}
+
+@mixin gray-button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: .2rem;
+    cursor: pointer;
+    font-weight: 70;
+
+    &:hover {
+        background-color: lightgray;
+    }
+}
+
+@mixin input {
+    padding-block: 0.5rem;
+    border: none;
+    border-bottom: 1px solid $green-theme;
+
+    &:focus {
+        outline: none;
+    }
+}

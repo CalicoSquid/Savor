@@ -1,0 +1,63 @@
+
+.login-container {
+    width: 90%;
+    margin: auto;
+    padding: 1rem;
+    box-shadow: $box-shadow-main;
+    //background-color: #f0f0f0;
+    border: 2px solid $green-theme;
+    border-radius: 5px;
+
+    h1 {
+        @include title;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        input {
+            padding: 0.5rem;
+            border: none;
+            border-bottom: $input-border;   
+            
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+
+            .password {
+                width: 100%;
+            }
+
+            small {
+                position: absolute;
+                right: 13px;
+                top: 8px;
+                
+            }
+        }
+
+        
+
+        .check-label {
+            align-self: flex-start;
+            font-size: 0.8rem;
+        }
+
+        button {
+            @include black-button;
+        }
+
+        span, button {
+            cursor: pointer;
+        }
+    }
+
+}
