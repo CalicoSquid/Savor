@@ -47,7 +47,7 @@ export default function Home(props) {
       setFilteredRecipes(filtered);
       setCurrentPage(1);
       // eslint-disable-next-line 
-    }, [ prompt]);
+    }, [ prompt, savedRecipes]);
 
     async function handleShowRecipe(recipe) {
       setLoadingImage(true)
@@ -89,8 +89,8 @@ export default function Home(props) {
         setOpenRecipeIndex(-1);
     }
 
-    function handleDelete(id) {
-        handleDeleteRecipe(id, props.stateProps);
+    async function handleDelete(id) {
+       await handleDeleteRecipe(id, props.stateProps);
         closePopup()
     }
 

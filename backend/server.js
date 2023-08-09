@@ -220,11 +220,12 @@ app.get('/api/recipes/:userId', async (req, res) => {
 // Route to delete a recipe from the database
 app.delete('/api/recipes/:recipeId', async (req, res) => {
   const recipeId = req.params.recipeId;
+  console.log(recipeId)
 
   try {
     // Find and delete the recipe with the provided name (recipeId)
     const recipe = await Recipe.findOneAndDelete({ recipeId: recipeId });
-
+    console.log(recipe)
     if (!recipe) {
       return res.status(404).json({ message: 'Recipe not found' });
     }

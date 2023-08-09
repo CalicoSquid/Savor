@@ -3,12 +3,11 @@ import { parse } from 'tinyduration';
 import config from './config';
 import { nanoid } from 'nanoid';
 
-import searchImages from './searchImages';
 import defaultImg from "../Assets/ff-default-recipe.png"
 
-const baseURL = config.baseURL;
+//const baseURL = config.baseURL;
 
-export async function getUserData(token) {
+export async function getUserData(token, baseURL) {
   try {
     const response = await axios.get(`${baseURL}/user-data`, {
       headers: {
@@ -35,32 +34,33 @@ export async function handleSubmit(e, stateProps) {
     setErrorMessage,
     setSuccessMessage,
     setSavedRecipes,
+    baseURL
   } = stateProps;
 
   try {
     const response = await axios.post(`${baseURL}/login`, formData);
     const token = response.data.token;
     localStorage.setItem('token', token);
-    const data = await getUserData(token);
+    const data = await getUserData(token, baseURL);
    
-    const recipeArr = await getUserRecipes(data.username)
+    const recipeArr = await getUserRecipes(data.username, baseURL)
     setSavedRecipes(recipeArr)
     setUserData(data);
     setIsLoggedIn(isAuthenticated());
     setErrorMessage((prevError) => ({
       ...prevError,
-      login: { message: '', err: '' },
+      recipe: { message: '', err: '' },
     }));
     setSuccessMessage((prevSuccess) => ({
       ...prevSuccess,
-      login: response.data.message,
+      recipe: response.data.message,
     }));
   } catch (error) {
     setErrorMessage((prevError) => ({
       ...prevError,
-      login: {
+      recipe: {
         message: 'Failed to log in',
-        err: error.response.data.message,
+        err: error.response?.data?.message,
       },
     }));
   }
@@ -68,7 +68,13 @@ export async function handleSubmit(e, stateProps) {
 
 export async function handleRegister(e, stateProps) {
   e.preventDefault();
-  const { formData, setFormData, setErrorMessage } = stateProps;
+  const { 
+    formData,
+    setFormData,
+    setErrorMessage,
+    baseURL
+    } = stateProps;
+
   setFormData((prevData) => ({ ...prevData, password: '' }));
   try {
     await axios.post(`${baseURL}/register`, formData);
@@ -89,19 +95,27 @@ export async function handleRegister(e, stateProps) {
 }
 
 export async function handleDeleteRecipe(id, stateProps) {
-  const { setSavedRecipes, setErrorMessage, setSuccessMessage } = stateProps;
+
+  const { 
+    setSavedRecipes, 
+    savedRecipes,
+    setErrorMessage, 
+    setSuccessMessage, 
+    baseURL
+  } = stateProps;
+
   try {
     const response = await axios.delete(`${baseURL}/recipes/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
-
+    console.log(savedRecipes)
     if (response.data.success) {
       setSavedRecipes((prevRecipes) =>
         prevRecipes.filter((recipe) => recipe.recipeId !== id)
       );
-
+      console.log(savedRecipes)
       setSuccessMessage((prevSuccess) => ({
         ...prevSuccess,
         home: response.data.message,
@@ -133,8 +147,7 @@ export async function handleExtractRecipe(stateProps) {
     searchNestedObj,
     url,
     parseInstruct,
-    handleChange,
-    setImages
+    baseURL,
   } = stateProps;
 
   try {
@@ -159,8 +172,6 @@ export async function handleExtractRecipe(stateProps) {
       : recipe.image.hasOwnProperty('url')
       ? recipe.image.url
       : defaultImg;
-
-      console.log(image)
 
     setRecipeData({
       recipeId: nanoid(),
@@ -207,7 +218,7 @@ export async function handleExtractRecipe(stateProps) {
   }
 }
 
-  export async function getUserRecipes(userId) {
+  export async function getUserRecipes(userId, baseURL) {
 
     try {
       const response = await axios.get(`${baseURL}/recipes/${userId}`);
@@ -229,7 +240,9 @@ export async function handleExtractRecipe(stateProps) {
       setErrorMessage,
       setSuccessMessage,
       setShowCreate,
+      baseURL,
     } = stateProps;
+
     let {
       recipeId,
       name,
@@ -260,7 +273,7 @@ export async function handleExtractRecipe(stateProps) {
       });
   
       if (response.data.success) {
-        const recipes = await getUserRecipes(userData.username);
+        const recipes = await getUserRecipes(userData.username, baseURL);
         setShowCreate(false);
         setSavedRecipes(recipes);
         setSuccessMessage((prevSuccess) => ({
@@ -288,6 +301,7 @@ export async function handleExtractRecipe(stateProps) {
       savedRecipes,
       setSavedRecipes,
       setShowCreate,
+      baseURL,
     } = stateProps;
   
     const {

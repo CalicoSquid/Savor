@@ -1,11 +1,11 @@
 import axios from 'axios';
 import config from './config';
 
-const baseURL = config.baseURL
+//const baseURL = config.baseURL
 
 async function convertBlobUrlToDataURL(blobUrl, stateProps) {
 
-    const {setErrorMessage} = stateProps
+    const {setErrorMessage, baseURL} = stateProps
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open("GET", blobUrl);
@@ -41,7 +41,7 @@ async function convertBlobUrlToDataURL(blobUrl, stateProps) {
 
 export async function convertToPNGOnServer(imageUrl, stateProps) {
 
-    const {setErrorMessage} = stateProps;
+    const {setErrorMessage, baseURL} = stateProps;
 
     try {
       const response = await axios.post(`${baseURL}/convert-to-png`, { imageUrl }, { responseType: 'arraybuffer' });

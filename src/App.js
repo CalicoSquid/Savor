@@ -25,6 +25,8 @@ function App() {
   const [passwordStrength, setPasswordStrength] = useState("");
   const [savedRecipes, setSavedRecipes] = useState([])
   const [userData, setUserData] = useState(null);
+  const [devMode, setDevMode] = useState(true)
+  const [baseURL, setBaseURL] = useState("http://192.168.1.109:8000/api")
   const [errorMessage, setErrorMessage] = useState({
     recipe: {message: "", err: ""},
     login: {message: "", err: ""},
@@ -60,11 +62,19 @@ function App() {
   });
 
   useEffect(() => {
+    devMode ? setBaseURL("http://192.168.1.109:8000/api") : setBaseURL("https://server-4m6hy941q-calicosquid.vercel.app/api")
+    console.log(baseURL)
+  }, [devMode])
+
+  useEffect(() => {
     const token = localStorage.getItem("token");
+
     const fetchUserData = async () => {
       try {
         if (token) {
-          const data = await getUserData(token);
+          console.log("xxx")
+          const data = await getUserData(token, baseURL);
+          console.log("kkk" + data)
           setUserData(data);
           setIsLoggedIn(true);
         } else {
@@ -81,10 +91,12 @@ function App() {
   }, []);
 
   useEffect(() => {
+
     if (userData) {
       const fetchUserRecipes = async () => {
         try {
-          const recipes = await getUserRecipes(userData.username);
+          const recipes = await getUserRecipes(userData.username, baseURL);
+
           setSavedRecipes(recipes);
         } catch (error) {
           console.error(error);
@@ -93,7 +105,7 @@ function App() {
       };
       fetchUserRecipes();
     }
-  }, [userData]);
+  }, [userData, savedRecipes]);
   
 
   const handleLoginChange = (e) => {
@@ -157,6 +169,8 @@ function App() {
     successMessage,
     imgToDownload,
     loadingImage,
+    devMode,
+    baseURL,
     setIsLoggedIn,
     setFormData,
     handleLoginChange,
@@ -175,6 +189,8 @@ function App() {
     handleUpdateRecipe,
     setImgToDownload,
     setLoadingImage,
+    setDevMode,
+    setBaseURL,
     }
 
   return (

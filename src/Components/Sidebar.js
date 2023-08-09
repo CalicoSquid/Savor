@@ -8,7 +8,7 @@ import logo from "../Assets/logo.png"
 
 export default function Sidebar(props) {
 
-    const { setRecipeData, images, handleChange } = props.stateProps
+    const { setRecipeData, images, handleChange, devMode, setDevMode } = props.stateProps
 
     const [showTimes, setShowTimes] = useState(false)
     const [showCreate, setShowCreate] = useState(true)
@@ -33,6 +33,10 @@ export default function Sidebar(props) {
       })
     }
 
+    function handleChangeDevmode() {
+        setDevMode(dm => !dm)
+    }
+
     const stateProps = {
       ...props.stateProps,
       handleChange,
@@ -50,7 +54,9 @@ export default function Sidebar(props) {
               <img src={logo} className="logo-img" style={{height: "100px"}} alt="Measuring spoons logo"/>
                 <div className="logo-text">
                   <h1 className="logo-title">Savor</h1>
+                  
                 </div>
+                <button className="devmode" onClick={handleChangeDevmode}>{!devMode ? "Dev mode" : "Production"}</button>
                 <Nav stateProps={stateProps}/>
             </div>
             {showCreate && <CreateRecipe stateProps={stateProps} />}
