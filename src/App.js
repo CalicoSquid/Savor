@@ -25,8 +25,8 @@ function App() {
   const [passwordStrength, setPasswordStrength] = useState("");
   const [savedRecipes, setSavedRecipes] = useState([])
   const [userData, setUserData] = useState(null);
-  const [devMode, setDevMode] = useState(true)
-  const [baseURL, setBaseURL] = useState("http://192.168.1.109:8000/api")
+  const [devMode, setDevMode] = useState(false)
+  const [baseURL, setBaseURL] = useState("https://server-puib.onrender.com/api")
   const [errorMessage, setErrorMessage] = useState({
     recipe: {message: "", err: ""},
     login: {message: "", err: ""},
