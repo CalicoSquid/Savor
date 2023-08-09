@@ -163,12 +163,13 @@
     }
 
     .devmode {
-        border: 1px dashed red;
-        height: 40px;
-        border-radius: 5px;
-        padding-inline: 5px;
+        background: transparent;
+        border: none;
         align-self: center;
         cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
     }
 
     
