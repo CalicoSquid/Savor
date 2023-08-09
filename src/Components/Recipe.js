@@ -87,8 +87,8 @@ export default function Recipe(props){
 
     return (
     <div className="main-wrapper">
-        {!recipeData && <p className="preview">Preview Recipe</p>}
-        {recipeData && <FullscreenButton fullscreenElement={fullscreenElement}/>}
+        {!recipeData.name && <p className="preview">Preview Recipe</p>}
+        {recipeData.name && <FullscreenButton fullscreenElement={fullscreenElement}/>}
         <div className="recipe-page" ref={fullscreenElement}>
         
             {loadingImage ? <h1>Loading Recipe...</h1> : 
