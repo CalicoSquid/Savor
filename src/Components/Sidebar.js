@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import Nav from "./Nav";
 import CreateRecipe from "./CreateRecipe";
@@ -12,6 +12,15 @@ export default function Sidebar(props) {
 
     const [showTimes, setShowTimes] = useState(false)
     const [showCreate, setShowCreate] = useState(true)
+
+    useEffect(() => {
+        const storedDevMode = localStorage.getItem('devMode');
+        if (storedDevMode !== null) {
+          setDevMode(JSON.parse(storedDevMode));
+        } else {
+          setDevMode(true); // Set a default value if not found in local storage
+        }
+      }, []);
 
     function handleToggle() {
         setShowTimes(prev => !prev)
@@ -34,7 +43,9 @@ export default function Sidebar(props) {
     }
 
     function handleChangeDevmode() {
-        setDevMode(dm => !dm)
+        const newDevMode = !devMode;
+        setDevMode(newDevMode);
+        localStorage.setItem('devMode', JSON.stringify(newDevMode));
     }
 
     const stateProps = {
