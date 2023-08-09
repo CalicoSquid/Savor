@@ -56,7 +56,7 @@ export default function Sidebar(props) {
                   <h1 className="logo-title">Savor</h1>
                   
                 </div>
-                <button className="devmode" onClick={handleChangeDevmode}>{!devMode ? "Dev mode" : "Production"}</button>
+                <button className="devmode" onClick={handleChangeDevmode}>{!devMode ? "→ Dev mode" : "→ Production"}</button>
                 <Nav stateProps={stateProps}/>
             </div>
             {showCreate && <CreateRecipe stateProps={stateProps} />}

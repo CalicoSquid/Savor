@@ -62,7 +62,7 @@ function App() {
   });
 
   useEffect(() => {
-    devMode ? setBaseURL("http://192.168.1.109:8000/api") : setBaseURL("https://server-4m6hy941q-calicosquid.vercel.app/api")
+    devMode ? setBaseURL("http://192.168.1.109:8000/api") : setBaseURL("https://server-puib.onrender.com/api")
     console.log(baseURL)
   }, [devMode])
 
@@ -72,9 +72,7 @@ function App() {
     const fetchUserData = async () => {
       try {
         if (token) {
-          console.log("xxx")
           const data = await getUserData(token, baseURL);
-          console.log("kkk" + data)
           setUserData(data);
           setIsLoggedIn(true);
         } else {
