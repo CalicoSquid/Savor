@@ -4,6 +4,7 @@ import he from 'he';
 import Popup from 'reactjs-popup';
 
 import Error from "./Error";
+import FullscreenButton from './FullScreenButton';
 import downloadPdf from "../Utilities/downloadPdf";
 import { convertToPNGOnServer } from "../Utilities/convertToBase64";
 
@@ -21,10 +22,12 @@ export default function Recipe(props){
         setImgToDownload,
         setShowRecipeMobile,
         isMobile,
-        } = props.stateProps;
+    } = props.stateProps;
+
+    const fullscreenElement = useRef(null);
 
     const ingredientsEls = recipeData.ingredients.map((x,i) => <li key={i}>{he.decode(x)}</li>)
-    const instructionEls = recipeData.instructions.map((y,i) => <><p key={i}>{y.text ? he.decode(y.text) : y.itemListElement ? y.itemListElement.map(z => he.decode(z.text)) : he.decode(y)}</p><br/></>)
+    const instructionEls = recipeData.instructions.map((y,i) => <div key={i}><p>{y.text ? he.decode(y.text) : y.itemListElement ? y.itemListElement.map(z => he.decode(z.text)) : he.decode(y)}</p><br/></div>)
     
     const prepTime = recipeData.times.prep
     const cookTime = recipeData.times.cook
@@ -84,8 +87,9 @@ export default function Recipe(props){
 
     return (
     <div className="main-wrapper">
-        <p className="preview">Preview Recipe</p>
-        <div className="recipe-page">
+        {!recipeData && <p className="preview">Preview Recipe</p>}
+        {recipeData && <FullscreenButton fullscreenElement={fullscreenElement}/>}
+        <div className="recipe-page" ref={fullscreenElement}>
         
             {loadingImage ? <h1>Loading Recipe...</h1> : 
             <div className="recipe-card" id="recipe-card">

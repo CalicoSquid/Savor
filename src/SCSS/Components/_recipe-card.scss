@@ -4,6 +4,14 @@
     margin-left: 30%;
     padding: 2rem;
 
+    .full-screen {
+        //border: 1px solid red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
 }
 
 .recipe-page {
@@ -15,7 +23,8 @@
     border-radius: 5px;
     text-align: left;
     margin-top: 1rem;
-   
+    background: white;
+    overflow-y: scroll;
     
 
     .download {
@@ -42,6 +51,7 @@
         min-height: 70vh;
         margin-bottom: 1rem;
         position: relative;
+        border: 1px solid blue;
         
     }
 
