@@ -1,7 +1,5 @@
 import axios from 'axios';
-import config from './config';
 
-//const baseURL = config.baseURL
 
 async function convertBlobUrlToDataURL(blobUrl, stateProps) {
     console.log("KKK")

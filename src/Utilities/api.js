@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { parse } from 'tinyduration';
-import config from './config';
+
 import { nanoid } from 'nanoid';
 
 import defaultImg from "../Assets/ff-default-recipe.png"
 
-//const baseURL = config.baseURL;
 
 export async function getUserData(token, baseURL) {
   try {
@@ -14,17 +13,17 @@ export async function getUserData(token, baseURL) {
         Authorization: `Bearer ${token}`,
       },
     });
-
+    console.log("xxx")
     const data = response.data;
     return data;
+    
   } catch (error) {
     console.error(error);
     throw new Error('Failed to fetch user data');
   }
 }
 
-export async function handleSubmit(e, stateProps) {
-  e.preventDefault();
+export async function handleSubmit( stateProps) {
 
   const {
     formData,
@@ -42,23 +41,20 @@ export async function handleSubmit(e, stateProps) {
     const token = response.data.token;
     localStorage.setItem('token', token);
     const data = await getUserData(token, baseURL);
-   
+
     const recipeArr = await getUserRecipes(data.username, baseURL)
     setSavedRecipes(recipeArr)
     setUserData(data);
     setIsLoggedIn(isAuthenticated());
-    setErrorMessage((prevError) => ({
-      ...prevError,
-      recipe: { message: '', err: '' },
-    }));
     setSuccessMessage((prevSuccess) => ({
       ...prevSuccess,
-      recipe: response.data.message,
+      login: response.data.message,
     }));
   } catch (error) {
+
     setErrorMessage((prevError) => ({
       ...prevError,
-      recipe: {
+      login: {
         message: 'Failed to log in',
         err: error.response?.data?.message,
       },
@@ -66,8 +62,8 @@ export async function handleSubmit(e, stateProps) {
   }
 }
 
-export async function handleRegister(e, stateProps) {
-  e.preventDefault();
+export async function handleRegister(stateProps) {
+
   const { 
     formData,
     setFormData,
@@ -78,17 +74,14 @@ export async function handleRegister(e, stateProps) {
   setFormData((prevData) => ({ ...prevData, password: '' }));
   try {
     await axios.post(`${baseURL}/register`, formData);
-    setErrorMessage((prevError) => ({
-      ...prevError,
-      register: { message: '', err: '' },
-    }));
-    handleSubmit(e, stateProps);
+    handleSubmit(stateProps);
+
   } catch (error) {
     setErrorMessage((prevError) => ({
       ...prevError,
       register: {
         message: 'Failed to register new user',
-        err: error.response.data.message,
+        err: error.response?.data?.message,
       },
     }));
   }
@@ -110,22 +103,23 @@ export async function handleDeleteRecipe(id, stateProps) {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
-    console.log(savedRecipes)
+
     if (response.data.success) {
       setSavedRecipes((prevRecipes) =>
         prevRecipes.filter((recipe) => recipe.recipeId !== id)
       );
-      console.log(savedRecipes)
+
       setSuccessMessage((prevSuccess) => ({
         ...prevSuccess,
         home: response.data.message,
       }));
     } else {
+
       setErrorMessage((prevError) => ({
         ...prevError,
         home: {
           message: 'Failed to delete recipe',
-          err: response.data.message,
+          err: response?.data?.message,
         },
       }));
     }
@@ -134,7 +128,7 @@ export async function handleDeleteRecipe(id, stateProps) {
       ...prevError,
       home: {
         message: 'Failed to delete recipe',
-        err: error.message,
+        err: error?.message,
       },
     }));
   }
@@ -219,7 +213,7 @@ export async function handleExtractRecipe(stateProps) {
 }
 
   export async function getUserRecipes(userId, baseURL) {
-
+      console.log("x")
     try {
       const response = await axios.get(`${baseURL}/recipes/${userId}`);
       const recipes = response.data.recipes;
@@ -353,13 +347,22 @@ export async function handleExtractRecipe(stateProps) {
           ...prevSuccess,
           home: 'Recipe updated successfully',
         }));
+
+      } else {
+        setErrorMessage(prevError => ({
+          ...prevError,
+          sidebar: {
+            message: "Failed to update recipe",
+            err: response?.data?.message
+          }
+        }))
       }
     } catch (error) {
       setErrorMessage((prevError) => ({
         ...prevError,
         sidebar: {
           message: 'Recipe failed to update',
-          err: error.response.message,
+          err: error?.response?.message,
         },
       }));
     }

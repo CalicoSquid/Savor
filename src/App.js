@@ -94,7 +94,7 @@ function App() {
       const fetchUserRecipes = async () => {
         try {
           const recipes = await getUserRecipes(userData.username, baseURL);
-
+          console.log(recipes)
           setSavedRecipes(recipes);
         } catch (error) {
           console.error(error);
@@ -103,7 +103,7 @@ function App() {
       };
       fetchUserRecipes();
     }
-  }, [userData, savedRecipes]);
+  }, [userData]);
   
 
   const handleLoginChange = (e) => {

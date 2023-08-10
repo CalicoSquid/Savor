@@ -1,7 +1,7 @@
 import { PopupIngred, PopupInstruct, PopupImageUpload } from "./Popups";
 import searchImages from "../Utilities/searchImages";
 import { handleSaveRecipe } from "../Utilities/api";
-import { useTimedMessage } from "../Utilities/useTimedMessage";
+
 import food from "../Assets/ff-default-recipe.png"
 
 export default function CreateRecipe(props) {
