@@ -1,22 +1,24 @@
 import { useEffect } from 'react';
 
-export function useTimedMessage(errorObj, setErrorObj, successObj, setSuccessObj, prop) {
+export function useTimedMessage(stateProps, prop) {
+
+  const { errorMessage, setErrorMessage, successMessage, setSuccessMessage } = stateProps
   useEffect(() => {
     let errorTimer;
     let successTimer;
 
-    if (errorObj) {
+    if (errorMessage) {
       errorTimer = setTimeout(() => {
-        setErrorObj(prevError => ({
+        setErrorMessage(prevError => ({
           ...prevError,
           [prop]: { message: '', err: '' }
         }));
       }, 5000); // Hide the error message after 5 seconds
     }
 
-    if (successObj) {
+    if (successMessage) {
       successTimer = setTimeout(() => {
-        setSuccessObj(prevSuccess => ({
+        setSuccessMessage(prevSuccess => ({
           ...prevSuccess,
           [prop]: ""
         }));
@@ -27,5 +29,5 @@ export function useTimedMessage(errorObj, setErrorObj, successObj, setSuccessObj
       clearTimeout(errorTimer);
       clearTimeout(successTimer);
     };
-  }, [errorObj, setErrorObj, successObj, setSuccessObj, prop]);
+  }, [errorMessage, setErrorMessage, successMessage, setSuccessMessage, prop]);
 }

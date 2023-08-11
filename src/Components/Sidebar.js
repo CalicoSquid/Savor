@@ -27,6 +27,7 @@ export default function Sidebar(props) {
         } else {
           setDevMode(true); // Set a default value if not found in local storage
         }
+        // eslint-disable-next-line
       }, []);
 
     function handleToggle() {

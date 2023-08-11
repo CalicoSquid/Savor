@@ -2,8 +2,8 @@ import axios from 'axios';
 
 
 async function convertBlobUrlToDataURL(blobUrl, stateProps) {
-    console.log("KKK")
-    const {setErrorMessage, baseURL} = stateProps
+
+    const {setErrorMessage} = stateProps
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open("GET", blobUrl);

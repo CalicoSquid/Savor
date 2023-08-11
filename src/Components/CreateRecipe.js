@@ -1,6 +1,7 @@
 import { PopupIngred, PopupInstruct, PopupImageUpload } from "./Popups";
 import searchImages from "../Utilities/searchImages";
 import { handleSaveRecipe } from "../Utilities/api";
+import { useTimedMessage } from "../Utilities/useTimedMessage";
 
 import food from "../Assets/ff-default-recipe.png"
 
@@ -20,8 +21,6 @@ export default function CreateRecipe(props) {
         setImages,
         errorMessage,
         successMessage,
-        setErrorMessage,
-        setSuccessMessage,
         handleUpdateRecipe,
         savedRecipes,
     } = props.stateProps
@@ -47,6 +46,8 @@ export default function CreateRecipe(props) {
         const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
         return pattern.test(url);
       }
+
+      useTimedMessage(props.stateProps, "sideBar");
 
 
     return (

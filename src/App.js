@@ -62,8 +62,9 @@ function App() {
   });
 
   useEffect(() => {
-    devMode ? setBaseURL("http://192.168.1.109:8000/api") : setBaseURL("https://server-puib.onrender.com/api")
+    devMode ? setBaseURL("http://192.168.1.109:5000/api") : setBaseURL("https://server-puib.onrender.com/api")
     console.log(baseURL)
+    // eslint-disable-next-line
   }, [devMode])
 
   useEffect(() => {
@@ -86,6 +87,7 @@ function App() {
     };
 
     fetchUserData();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -103,6 +105,7 @@ function App() {
       };
       fetchUserRecipes();
     }
+    // eslint-disable-next-line
   }, [userData]);
   
 

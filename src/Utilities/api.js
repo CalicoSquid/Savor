@@ -91,7 +91,6 @@ export async function handleDeleteRecipe(id, stateProps) {
 
   const { 
     setSavedRecipes, 
-    savedRecipes,
     setErrorMessage, 
     setSuccessMessage, 
     baseURL
@@ -236,7 +235,7 @@ export async function handleExtractRecipe(stateProps) {
       setShowCreate,
       baseURL,
     } = stateProps;
-
+  
     let {
       recipeId,
       name,
@@ -252,22 +251,33 @@ export async function handleExtractRecipe(stateProps) {
     name = name.trim();
   
     try {
-      const response = await axios.post(`${baseURL}/save-recipe`, {
-        userId: userData.username,
-        recipeId,
-        name,
-        description,
-        ingredients,
-        instructions,
-        author,
-        image,
-        isFavorite,
-        recipeYield,
-        times,
-      });
+      const token = localStorage.getItem('token'); // Retrieve the token from localStorage or your preferred storage mechanism
+  
+      const response = await axios.post(
+        `${baseURL}/save-recipe`,
+        {
+          userId: userData.username,
+          recipeId,
+          name,
+          description,
+          ingredients,
+          instructions,
+          author,
+          image,
+          isFavorite,
+          recipeYield,
+          times,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+          },
+        }
+      );
   
       if (response.data.success) {
         const recipes = await getUserRecipes(userData.username, baseURL);
+        console.log("recipes: " + recipes)
         setShowCreate(false);
         setSavedRecipes(recipes);
         setSuccessMessage((prevSuccess) => ({
@@ -312,18 +322,28 @@ export async function handleExtractRecipe(stateProps) {
     } = recipe ? recipe : recipeData;
   
     try {
-      const response = await axios.put(`${baseURL}/recipes/${recipeId}`, {
-        userId: userData.username,
-        name,
-        description,
-        ingredients,
-        instructions,
-        author,
-        image,
-        isFavorite,
-        recipeYield,
-        times,
-      });
+      const token = localStorage.getItem('token'); // Retrieve the token from localStorage or wherever it's stored
+  
+      const response = await axios.put(
+        `${baseURL}/recipes/${recipeId}`,
+        {
+          userId: userData.username,
+          name,
+          description,
+          ingredients,
+          instructions,
+          author,
+          image,
+          isFavorite,
+          recipeYield,
+          times,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          },
+        }
+      );
   
       if (response.data.success) {
         const updatedRecipe = response.data.updatedRecipe;
@@ -347,15 +367,14 @@ export async function handleExtractRecipe(stateProps) {
           ...prevSuccess,
           home: 'Recipe updated successfully',
         }));
-
       } else {
-        setErrorMessage(prevError => ({
+        setErrorMessage((prevError) => ({
           ...prevError,
           sidebar: {
-            message: "Failed to update recipe",
-            err: response?.data?.message
-          }
-        }))
+            message: 'Failed to update recipe',
+            err: response?.data?.message,
+          },
+        }));
       }
     } catch (error) {
       setErrorMessage((prevError) => ({
@@ -367,6 +386,6 @@ export async function handleExtractRecipe(stateProps) {
       }));
     }
   }
-
+  
 
 

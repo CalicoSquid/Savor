@@ -20,7 +20,6 @@ export default function Home(props) {
       errorMessage,
       setErrorMessage,
       successMessage,
-      setSuccessMessage,
       setLoadingImage,
       setImgToDownload,
       setShowCreate,
@@ -108,7 +107,7 @@ export default function Home(props) {
       setPrompt("")
     }
 
-    useTimedMessage(errorMessage, setErrorMessage, successMessage, setSuccessMessage, "home");
+    useTimedMessage(props.stateProps, "home");
 
     const recipeArray = recipesToDisplay
     .map((recipe, index) => {
