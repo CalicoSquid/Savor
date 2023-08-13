@@ -7,6 +7,7 @@ import defaultImg from "../Assets/ff-default-recipe.png"
 
 
 export async function getUserData(token, baseURL) {
+  console.log(baseURL)
   try {
     const response = await axios.get(`${baseURL}/user-data`, {
       headers: {
@@ -141,7 +142,10 @@ export async function handleExtractRecipe(stateProps) {
     url,
     parseInstruct,
     baseURL,
+    setIsExtracting
   } = stateProps;
+
+  setIsExtracting(true)
 
   try {
     const response = await axios.post(`${baseURL}/scrape`, { url });
@@ -200,9 +204,10 @@ export async function handleExtractRecipe(stateProps) {
           : { hours: 0, minutes: 0 },
       },
     });
-   
+   setIsExtracting(false)
+
   } catch (error) {
-    console.log(error)
+    setIsExtracting(false)
     setErrorMessage((prevError) => ({
         ...prevError,
         recipe: { message: `Error extracting recipe from ${url}`, err: '' },
@@ -277,7 +282,6 @@ export async function handleExtractRecipe(stateProps) {
   
       if (response.data.success) {
         const recipes = await getUserRecipes(userData.username, baseURL);
-        console.log("recipes: " + recipes)
         setShowCreate(false);
         setSavedRecipes(recipes);
         setSuccessMessage((prevSuccess) => ({

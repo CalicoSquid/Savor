@@ -2,6 +2,7 @@ import { PopupIngred, PopupInstruct, PopupImageUpload } from "./Popups";
 import searchImages from "../Utilities/searchImages";
 import { handleSaveRecipe } from "../Utilities/api";
 import { useTimedMessage } from "../Utilities/useTimedMessage";
+import { useState } from "react";
 
 import food from "../Assets/ff-default-recipe.png"
 
@@ -23,23 +24,47 @@ export default function CreateRecipe(props) {
         successMessage,
         handleUpdateRecipe,
         savedRecipes,
+        isExtracting,
+        isLoggedIn,
+        setErrorMessage,
+        setShowCreate,
+        setIsSaved,
     } = props.stateProps
 
-    //useTimedMessage(errorMessage, setErrorMessage, successMessage, setSuccessMessage, "sidebar");
+    const [isGenerating, setIsGenerating] = useState(false);
 
     async function handleGetImages() {     
-        await searchImages(recipeData.name, handleChange, setImages, 3)
+        await searchImages(recipeData.name, handleChange, setImages, setIsGenerating, 3)
+    }
 
+    async function handleExtract() {
+        handleExtractRecipe(props.stateProps)
+        setIsSaved(false)
     }
 
     async function handleSaveOrUpdateRecipe(recipe) {
-        const existingRecipe = savedRecipes.find(savedRecipe => savedRecipe.recipeId === recipe.recipeId);
+
+        if(isLoggedIn) {
+            const existingRecipe = savedRecipes.find(savedRecipe => savedRecipe.recipeId === recipe.recipeId);
 
         if (existingRecipe) {
             await handleUpdateRecipe(props.stateProps);
+            setIsSaved(true)
         } else {
             await handleSaveRecipe(props.stateProps);
+            setIsSaved(true)
         }
+        } else {
+            setShowCreate(false)
+            setErrorMessage(prevError => ({
+                ...prevError,
+                login: {
+                    message: "Please log in first",
+                    err: "Please log in or create an account first"
+                }
+            }))
+        }
+        
     }
 
     function isValidUrl(url) {
@@ -47,13 +72,14 @@ export default function CreateRecipe(props) {
         return pattern.test(url);
       }
 
-      useTimedMessage(props.stateProps, "sideBar");
+    useTimedMessage(props.stateProps, "sideBar");
 
 
     return (
         <div className="sidebar-info">
                 <div className="recipe-form">
                     <p className="side-header">Import Recipe:</p>
+                    <div className="url-input-container">
                     <input
                         type="url"
                         id="url"
@@ -62,8 +88,11 @@ export default function CreateRecipe(props) {
                         placeholder="Url"
                         required
                     />
-                    <button onClick={() => handleExtractRecipe(props.stateProps)} disabled={!isValidUrl(url)}>
-                        Extract Recipe
+                    <p onClick={() => setUrl("")}>X</p>
+                    </div>
+                    
+                    <button onClick={handleExtract} disabled={!isValidUrl(url)}>
+                        {!isExtracting ? "Extract Recipe" : "Loading Recipe"}
                     </button>
                     {errorMessage.sidebar.message && <p className="error">{errorMessage.sidebar.message}</p>}
                     </div>
@@ -88,7 +117,11 @@ export default function CreateRecipe(props) {
                         <PopupIngred recipe={recipeData} setRecipe={setRecipeData}/>
                         <PopupInstruct recipe={recipeData} setRecipe={setRecipeData} />
                         <PopupImageUpload setRecipeData={setRecipeData}/>
-                        <button onClick={handleGetImages}>Generate New Images</button>                  
+                        <button 
+                        onClick={handleGetImages}
+                        disabled={isGenerating}
+                        >{ !isGenerating ? `Generate New Images` : "Finding images"}
+                        </button>                  
                     </div>
                     
                     <div className="image-grid">

@@ -10,7 +10,7 @@ import parseInstruct from "../Utilities/parseInstructions";
 
 export default function Main(props) {
 
-    const {setRecipeData, recipeData} = props.stateProps;
+    const {setRecipeData, recipeData, setIsSaved} = props.stateProps;
     const [images, setImages] = useState([])
     const [url, setUrl] = useState('');
     const [showRecipeMobile, setShowRecipeMobile] = useState(false);
@@ -32,8 +32,9 @@ export default function Main(props) {
       setImages([]);
     }, [recipeData.name, recipeData.image]);
 
+
     async function handleChange(e) {
-      
+      setIsSaved(false)
       const {value, name, src} = e.target;
       setRecipeData(prevState => {
           return {

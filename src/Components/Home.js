@@ -25,6 +25,8 @@ export default function Home(props) {
       setShowCreate,
       setShowRecipeMobile,
       isMobile,
+      recipeData,
+      isSaved,
     } = props.stateProps;
 
     const [hoveredIndex, setHoveredIndex] = useState(-1);
@@ -49,6 +51,17 @@ export default function Home(props) {
     }, [ prompt, savedRecipes]);
 
     async function handleShowRecipe(recipe) {
+      //console.log(recipe.recipeId, recipeData.recipeId)
+      if (!isSaved && recipe.recipeId !== recipeData.recipeId) {
+        const userConfirmed = window.confirm(
+          "You have unsaved changes! Are you sure you want to leave this page?"
+        );
+    
+        if (!userConfirmed) {
+          return; // Do nothing if user cancels navigation
+        }
+      }
+    
       setLoadingImage(true)
       setImgToDownload("")
       setRecipeData(recipe);

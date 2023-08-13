@@ -55,6 +55,16 @@
                 font-size: 1.7rem;
             }
 
+            .url-input-container {
+                //border: 1px solid red;
+                display: flex;
+                align-items: center;
+
+                p {
+                    cursor: pointer;
+                }
+            }
+
             .recipe-form {     
                 display: flex;
                 flex-direction: column;
@@ -70,6 +80,7 @@
 
                 input, textarea {
                     @include input;
+                    width: 100%;
                     
                 }
 

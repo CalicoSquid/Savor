@@ -1,14 +1,17 @@
 import axios from 'axios';
 
-export default async function searchImages(query, handleChange, setImages, numResults) {
+export default async function searchImages(query, handleChange, setImages, setIsGenerating, numResults) {
     const apiKey = 'AIzaSyB0YNbNdTxABd2HrKli0AoyLoIhJlddt24';
     const searchEngineId = 'd2889336936c04567';
     //const numResults = 3;
-  
+    setIsGenerating(true)
     try {
       const response = await axios.get(
-        `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${query}&searchType=image&num=${numResults}`
-      );
+        `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${query}&searchType=image&num=${numResults}`,
+      
+       
+
+        );
       
       const imageResults = response.data.items.map(item => item.link)
 
@@ -35,12 +38,13 @@ export default async function searchImages(query, handleChange, setImages, numRe
         });
 
         setImages(imageResults.filter(image => image));
+        setIsGenerating(false)
         return imageResults[0]
       });
 
     } catch (error) {
-        console.error('Error fetching images:', error);
         setImages([<p className="error img-error">Error fetching images:</p>])
+        setIsGenerating(false)
         throw new Error("Failed to fetch images");
         
 

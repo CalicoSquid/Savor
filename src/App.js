@@ -25,7 +25,9 @@ function App() {
   const [passwordStrength, setPasswordStrength] = useState("");
   const [savedRecipes, setSavedRecipes] = useState([])
   const [userData, setUserData] = useState(null);
+  const [isSaved, setIsSaved] = useState(true)
   const [devMode, setDevMode] = useState(false)
+  const [isExtracting, setIsExtracting] = useState(false);
   const [baseURL, setBaseURL] = useState("https://server-puib.onrender.com/api")
   const [errorMessage, setErrorMessage] = useState({
     recipe: {message: "", err: ""},
@@ -62,9 +64,36 @@ function App() {
   });
 
   useEffect(() => {
+    if(!isSaved) {
+      const handleBeforeUnload = (event) => {
+        event.preventDefault();
+        event.returnValue = ''; // This is necessary to display the alert message in some browsers
+      };
+  
+      window.addEventListener('beforeunload', handleBeforeUnload);
+  
+      return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+      };
+    }
+   
+  }, []);
+
+  useEffect(() => {
+    if (!isSaved) {
+      window.onbeforeunload = () => true;
+    } else {
+      window.onbeforeunload = undefined;
+    }
+
+    return () => {
+      window.onbeforeunload = undefined;
+    };
+  }, [isSaved]);
+
+
+  useEffect(() => {
     devMode ? setBaseURL("http://192.168.1.109:5000/api") : setBaseURL("https://server-puib.onrender.com/api")
-    console.log(baseURL)
-    // eslint-disable-next-line
   }, [devMode])
 
   useEffect(() => {
@@ -73,10 +102,13 @@ function App() {
     const fetchUserData = async () => {
       try {
         if (token) {
+          console.log(baseURL)
           const data = await getUserData(token, baseURL);
+
           setUserData(data);
           setIsLoggedIn(true);
         } else {
+          console.log(":-(")
           setIsLoggedIn(false);
         }
       } catch (error) {
@@ -96,7 +128,6 @@ function App() {
       const fetchUserRecipes = async () => {
         try {
           const recipes = await getUserRecipes(userData.username, baseURL);
-          console.log(recipes)
           setSavedRecipes(recipes);
         } catch (error) {
           console.error(error);
@@ -172,6 +203,8 @@ function App() {
     loadingImage,
     devMode,
     baseURL,
+    isExtracting,
+    isSaved,
     setIsLoggedIn,
     setFormData,
     handleLoginChange,
@@ -192,6 +225,9 @@ function App() {
     setLoadingImage,
     setDevMode,
     setBaseURL,
+    setIsExtracting,
+    setIsSaved,
+
     }
 
   return (
