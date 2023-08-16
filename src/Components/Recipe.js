@@ -94,7 +94,7 @@ export default function Recipe(props){
             {loadingImage ? <h1>Loading Recipe...</h1> : 
             <div className="recipe-card" id="recipe-card">
                 {isMobile && <button className="back" onClick={handleBack}>← Back</button>}
-                <button className="download" onClick={handleSavePopup} >Download PDF</button>
+                {recipeData.name && <button className="download" onClick={handleSavePopup} >Download PDF</button>}
 
                 <Popup className="popup" position="right" open={open} onClose={handlePopupClose}>
                     <div className="save-pdf">

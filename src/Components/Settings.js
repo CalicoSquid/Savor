@@ -1,5 +1,7 @@
 import {handleUpdateAvatar} from "../Utilities/api"
 import AvatarSelectionPage from "./Avatar"
+import gear from "../Assets/settings.png"
+import gearWhite from "../Assets/settings-white.png"
 
 
 export function Settings(props) {
@@ -39,7 +41,8 @@ export function Settings(props) {
         <div className="settings">
           <br/>
             <div className="settings-top">
-              <h2>{`Hey, ${props.displayName}`}</h2>
+              <img src={darkMode ? gearWhite : gear} alt="settings" style={{height: "30px"}}/>
+              <h2>Settings</h2>
             </div>
             <br/>
             <hr style={{border: "1px solid #4CAF50"}}/>

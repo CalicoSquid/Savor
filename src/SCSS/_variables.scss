@@ -16,7 +16,7 @@ $box-shadow-main: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
 @mixin black-button {
     padding: 0.5rem;
-    background-color: #333333;
+    background-color: rgb(17, 17, 17);
     border: none;
     border-radius: 5px;
     color: white;
