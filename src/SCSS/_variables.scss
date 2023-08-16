@@ -70,3 +70,14 @@ $box-shadow-main: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         outline: none;
     }
 }
+
+@mixin scroll {
+    overflow: scroll;
+    scrollbar-width: none;
+        -ms-overflow-style: none; 
+         
+        &::-webkit-scrollbar {
+            display: none;
+          }
+
+}

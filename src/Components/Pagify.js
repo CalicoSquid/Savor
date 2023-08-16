@@ -1,16 +1,20 @@
 
 export default function Pagify(props) {
 
-    const {totalPages, currentPage, setCurrentPage} = props.pagifyProps;
+    const {totalPages, currentPage, setCurrentPage, setPreviousPage, recipesPerPage} = props.pagifyProps;
 
     const handleNextPage = () => {
         if (currentPage < totalPages) {
+          console.log(recipesPerPage)
+          setPreviousPage(currentPage)
           setCurrentPage(currentPage + 1);
         }
       };
       
       const handlePreviousPage = () => {
         if (currentPage > 1) {
+          console.log(recipesPerPage)
+          setPreviousPage(currentPage)
           setCurrentPage(currentPage - 1);
         }
       };
@@ -23,7 +27,7 @@ export default function Pagify(props) {
                 Previous
               </button>
               <span>
-                Page {currentPage} of {totalPages}
+                {currentPage} / {totalPages}
               </span>
               <button onClick={handleNextPage} disabled={currentPage === totalPages}>
                 Next

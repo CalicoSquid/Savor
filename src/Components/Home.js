@@ -3,11 +3,14 @@ import { useState, useEffect } from "react";
 import Popup from 'reactjs-popup';
 
 import Pagify from "./Pagify";
+import HomeHead from "./HomeHead";
+import { Settings } from "./Settings";
 import { useTimedMessage } from "../Utilities/useTimedMessage";
 
 import star from "../Assets/star.png"
 import starFilled from "../Assets/star-filled.png"
-
+import empty from "../Assets/empty.png"
+import avatar from "../Assets/Avatars/AVT-13.png"
 
 export default function Home(props) {
     
@@ -27,6 +30,10 @@ export default function Home(props) {
       isMobile,
       recipeData,
       isSaved,
+      previousPage,
+      setPreviousPage,
+      showSettings,
+      userData,
     } = props.stateProps;
 
     const [hoveredIndex, setHoveredIndex] = useState(-1);
@@ -34,6 +41,8 @@ export default function Home(props) {
     const [prompt, setPrompt] = useState("")
     const [currentPage, setCurrentPage] = useState(1);
     const [filteredRecipes, setFilteredRecipes] = useState([]);
+    const [selectedAvatar, setSelectedAvatar] = useState(avatar);
+    const [imgSrc, setImgSrc] = useState("")
 
     const recipesPerPage = 6;
     const totalPages = Math.ceil(filteredRecipes.length / recipesPerPage);
@@ -48,20 +57,28 @@ export default function Home(props) {
       setFilteredRecipes(filtered);
       setCurrentPage(1);
       // eslint-disable-next-line 
-    }, [ prompt, savedRecipes]);
+    }, [ prompt]);
 
+    useEffect(() => {
+      setFilteredRecipes(savedRecipes)
+      setCurrentPage(previousPage);
+    // eslint-disable-next-line
+    }, [savedRecipes])
+
+    
     async function handleShowRecipe(recipe) {
-      //console.log(recipe.recipeId, recipeData.recipeId)
+
       if (!isSaved && recipe.recipeId !== recipeData.recipeId) {
         const userConfirmed = window.confirm(
           "You have unsaved changes! Are you sure you want to leave this page?"
         );
     
         if (!userConfirmed) {
-          return; // Do nothing if user cancels navigation
+          return; 
         }
       }
-    
+
+      setPreviousPage(currentPage);
       setLoadingImage(true)
       setImgToDownload("")
       setRecipeData(recipe);
@@ -122,6 +139,26 @@ export default function Home(props) {
 
     useTimedMessage(props.stateProps, "home");
 
+    if(recipesToDisplay.length === 0 && !showSettings && !prompt) {
+      return (
+        <div className="empty">
+          <HomeHead stateProps={props.stateProps} selectedAvatar={selectedAvatar} handleLogout={handleLogout}/>
+          <br/>
+          <h2>There seems to be nothing here...</h2>
+          <br/>
+          <p>Start adding some recipes 
+            {" "}
+            <span className="green" onClick={() => setShowCreate(true)} style={{cursor: "pointer"}}>here</span>
+            , or click the Create/Edit tab above.
+          </p>
+          <br/>
+          <img src={empty} alt="empty avocado"/>
+          <button onClick={handleLogout} className="logout">Logout</button>
+        </div>
+      )
+    }
+
+
     const recipeArray = recipesToDisplay
     .map((recipe, index) => {
         const showButtons = hoveredIndex === index;
@@ -179,34 +216,59 @@ export default function Home(props) {
         currentPage,
         totalPages,
         setCurrentPage,
+        setPreviousPage,
+        recipesPerPage
       }
 
 
       return (
+
         <div className="home-container">
+          <HomeHead 
+          stateProps={props.stateProps} 
+          selectedAvatar={selectedAvatar} 
+          handleLogout={handleLogout}
+          imgSrc={imgSrc}
+          handleSearch={handleSearch}
+          handleClearSearch={handleClearSearch}
+          prompt={prompt}
+          />
+         {showSettings ? 
+          <Settings 
+          stateProps={props.stateProps} 
+          selectedAvatar={selectedAvatar} 
+          setSelectedAvatar={setSelectedAvatar}
+          imgSrc={imgSrc}
+          setImgSrc={setImgSrc}
+          /> : 
             <div>
-              <input 
-              type="text" 
-              className="search" 
-              placeholder="Search Recipes"
-              name="search"
-              value={prompt}
-              onChange={(e) => handleSearch(e)}
-              />
-              <span className="clear-search" onClick={handleClearSearch}>X</span>
+              
               <br/>
               {errorMessage.home.message && <><br/><p className="error">{errorMessage.home.message}</p></>}
               {successMessage.home && <><br/><p className="green">{successMessage.home}</p></>}
+              <br/>
+              {recipeArray.length > 0 ? 
+              <>
+              <h2>{`${userData.username}'s Recipes`}</h2>
               <br/>
               <Pagify pagifyProps={pagifyProps}/>
               <br/>
               <div className="recipe-image-grid">
                   {recipeArray}
               </div>
-            </div>
+              <br/>
+              <Pagify pagifyProps={pagifyProps}/></> 
+              :<>
+              <br/>
+              <h2>No Recipes found!</h2>
+              </>
+              
+               }
+              <br/>
+            </div>}
             <br/>
-            <Pagify pagifyProps={pagifyProps}/>
-            <button onClick={handleLogout} className="logout">Logout</button>
+            
+            
         </div>
       ) 
     

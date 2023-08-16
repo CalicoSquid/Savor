@@ -13,13 +13,7 @@
         justify-content: space-between;
         border-right: 3px solid lightgray;
         width: 30%;
-        scrollbar-width: none;
-        -ms-overflow-style: none; 
-        
-         
-        &::-webkit-scrollbar {
-            display: none;
-          }
+        @include scroll;
 
         .title-bar {
             position: fixed;
@@ -28,7 +22,6 @@
             background-color: #fff;
             padding-block: 0.7rem;
             width: 30%;
-            //height: 16%;
             border-right: 3px solid lightgray;
             z-index: 1000;
             display: flex;
@@ -47,8 +40,7 @@
 
         .sidebar-info {
             padding: 2rem;
-            margin-top: 140px;
-            //font-size: 1.5rem;
+            margin-top: 150px;
 
             .side-header {
                 font-family: Lora, serif;
@@ -56,9 +48,9 @@
             }
 
             .url-input-container {
-                //border: 1px solid red;
                 display: flex;
                 align-items: center;
+                gap: 1rem;
 
                 p {
                     cursor: pointer;
@@ -80,6 +72,7 @@
 
                 input, textarea {
                     @include input;
+                    @include scroll;
                     width: 100%;
                     
                 }
@@ -159,9 +152,6 @@
             
         }
 
-        
-        
-
         .save {
             @include green-button;
             width: 100%;
@@ -185,3 +175,4 @@
 
     
 }
+

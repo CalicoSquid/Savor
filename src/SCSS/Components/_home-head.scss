@@ -1,0 +1,57 @@
+.home-head-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    box-shadow: $box-shadow-main;
+    position: fixed;
+    left: 0;
+    top: 153px;
+    width: 30%;
+    background-color: #fff;
+    //padding-top: 5px;
+    padding-inline: 1rem;
+    box-sizing: border-box;
+    z-index: 9999;
+    //border: 1px solid blue;
+
+    .home-head-user {
+        img {
+            //border: 1px solid red;
+            margin-top: 5px;
+        }
+        
+    }
+
+
+        .home-head-search {
+            //width: 50%;
+
+            input {
+                width: 100%;
+                border: 1px solid $green-theme;
+                //@include input;
+                padding: 0.3rem;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+        }
+    
+        .home-head-buttons {
+            //border: 1px solid blue;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.6rem;
+
+            h3 {
+                //@include title;
+            }
+        
+    }
+
+    
+}      

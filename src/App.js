@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react"
 
+import defaultAvatar from './Assets/Avatars/AVT-13.png';
+
 import './SCSS/index.scss';
 
 import Main from './Components/Main';
@@ -24,10 +26,21 @@ function App() {
   const [loginError, setLoginError] = useState(null)
   const [passwordStrength, setPasswordStrength] = useState("");
   const [savedRecipes, setSavedRecipes] = useState([])
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState({
+    createdAt: "",
+    email: "",
+    password: "",
+    profilePicture: defaultAvatar,
+    updatedAt: "",
+    username: ""
+  });
   const [isSaved, setIsSaved] = useState(true)
   const [devMode, setDevMode] = useState(false)
+  const [previousPage, setPreviousPage] = useState(1);
   const [isExtracting, setIsExtracting] = useState(false);
+  const [showInstruct, setShowInstruct] = useState(false)
+  const [showIngred, setShowIngred] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
   const [baseURL, setBaseURL] = useState("https://server-puib.onrender.com/api")
   const [errorMessage, setErrorMessage] = useState({
     recipe: {message: "", err: ""},
@@ -46,6 +59,7 @@ function App() {
     email: "",
     password: "",
   })
+
   const [recipeData, setRecipeData] = useState({
       recipeId: "",
       name: "",
@@ -76,7 +90,7 @@ function App() {
         window.removeEventListener('beforeunload', handleBeforeUnload);
       };
     }
-   
+  // eslint-disable-next-line 
   }, []);
 
   useEffect(() => {
@@ -85,40 +99,39 @@ function App() {
     } else {
       window.onbeforeunload = undefined;
     }
-
     return () => {
       window.onbeforeunload = undefined;
     };
+  // eslint-disable-next-line
   }, [isSaved]);
 
 
   useEffect(() => {
-    devMode ? setBaseURL("http://192.168.1.109:5000/api") : setBaseURL("https://server-puib.onrender.com/api")
+    devMode ? setBaseURL("http://192.168.1.109:8080/api") : setBaseURL("https://server-puib.onrender.com/api")
   }, [devMode])
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
-    const fetchUserData = async () => {
-      try {
-        if (token) {
-          console.log(baseURL)
+  
+    if (token) {
+      const fetchUserData = async () => {
+        try {
+          console.log(baseURL);
           const data = await getUserData(token, baseURL);
-
+  
           setUserData(data);
           setIsLoggedIn(true);
-        } else {
-          console.log(":-(")
+        } catch (error) {
+          console.error(error);
+          setLoginError(error.message);
           setIsLoggedIn(false);
         }
-      } catch (error) {
-        console.error(error);
-        setLoginError(error.message)
-        setIsLoggedIn(false);
-      } 
-    };
-
-    fetchUserData();
+      };
+  
+      fetchUserData();
+    } else {
+      setIsLoggedIn(false);
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -151,13 +164,13 @@ function App() {
       setPasswordStrength("Medium") :
       setPasswordStrength("Strong");
     }
-
+    //console.log(formData)
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
-
+  
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(isAuthenticated());
@@ -205,6 +218,10 @@ function App() {
     baseURL,
     isExtracting,
     isSaved,
+    previousPage,
+    showInstruct,
+    showIngred,
+    showSettings,
     setIsLoggedIn,
     setFormData,
     handleLoginChange,
@@ -227,6 +244,10 @@ function App() {
     setBaseURL,
     setIsExtracting,
     setIsSaved,
+    setPreviousPage,
+    setShowInstruct,
+    setShowIngred,
+    setShowSettings
 
     }
 

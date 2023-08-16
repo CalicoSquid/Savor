@@ -1,0 +1,44 @@
+
+.settings {
+    //border: 1px solid red;
+    //height: 80%;
+    //margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem;
+    @include scroll;
+
+    .settings-top {
+       margin-top: 1rem;
+        width: 100%;
+
+        .label {
+            font-size: 1.2rem;
+        }
+    }
+
+    .settings-buttons {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .save {
+            @include green-button;
+            width: 48%;
+        }
+
+        .cancel {
+            @include black-button;
+            width: 48%;
+        }
+    }
+
+    input {
+        @include input;
+        padding: 0;
+        max-width: 200px;
+    }
+}
+

@@ -44,9 +44,10 @@ export default function Login(props) {
 
     async function handleUserRegister(e) {
         e.preventDefault();
+        console.log(formData)
         if (formData.password === confirmPassword) {
             setIsRegistering(true)
-            handleRegister(props.stateProps)
+            await handleRegister(props.stateProps)
             setIsRegistering(false)
         } else {
             setErrorMessage(prevError => ({

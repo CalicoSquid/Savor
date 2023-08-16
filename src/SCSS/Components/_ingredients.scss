@@ -1,0 +1,96 @@
+.ingred-list {
+    padding: 2rem;
+    box-sizing: border-box;
+    width: 30%;
+    height: 80%;
+    position: fixed;
+    right: 0;
+    left:0;
+    top: 150px;
+    @include scroll;
+    padding: 3rem;
+    border: 1px solid red;
+
+    .ingred-head {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-end;
+
+        img {
+            height: 75px;
+            width: 75px;
+            object-fit: cover;
+            box-shadow: $box-shadow-main;
+        }
+    }
+
+
+    p {
+        font-family: Lora, Georgia, serif;
+        font-size: 1.4rem;
+        font-style: italic;
+        margin-bottom: 1rem;
+        text-align: left;
+        color: #4CAF50;
+        text-decoration: underline;
+        text-decoration-color: #333333;
+    }
+
+    ul {
+        list-style-type: none;
+        margin-bottom: 2rem;
+         
+        &:focus {
+            outline: none;
+
+        }
+
+        li {
+            margin-block: 0.5rem;
+            display: flex;
+
+            textarea, input {
+                width: 90%;
+                border: none;
+                border-bottom: 1px solid #4CAF50;
+                font-size: 1rem;
+                white-space: normal;
+                padding: 0.5rem;
+                @include scroll;
+
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            button {
+                border: none;
+                background-color: transparent;
+
+
+                .material-symbols-outlined {
+                    font-size: 1.2rem;
+                    
+                }
+            }
+            
+        }
+
+        button {
+            @include gray-button;
+        }
+
+        
+    }
+    .save {
+        
+        @include green-button;
+        width: 48% !important;
+    }
+
+    .cancel {
+        @include black-button; 
+        width: 48%;   
+    }
+}  

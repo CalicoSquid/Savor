@@ -1,0 +1,31 @@
+.avatar-selection-page {
+    width: 100%;
+    margin-block: 2rem;
+    
+    .avatar-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr ;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        //width: 100% !important;
+        margin: auto;
+        //border: $input-border;
+        padding: 1rem;
+        border-radius: 5px;
+        //box-shadow: $box-shadow-main;
+    
+        img {
+    
+        }
+    
+        .avatar-option {
+            cursor: pointer;
+        }
+    
+        .selected {
+            transform: scale(1.2); /* Add the border color for the selected avatar */
+          }
+    }
+}
+
+

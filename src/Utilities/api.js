@@ -4,17 +4,17 @@ import { parse } from 'tinyduration';
 import { nanoid } from 'nanoid';
 
 import defaultImg from "../Assets/ff-default-recipe.png"
+import defaultAvatar from '../Assets/Avatars/AVT-13.png';
 
 
 export async function getUserData(token, baseURL) {
-  console.log(baseURL)
+
   try {
     const response = await axios.get(`${baseURL}/user-data`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("xxx")
     const data = response.data;
     return data;
     
@@ -44,6 +44,12 @@ export async function handleSubmit( stateProps) {
     const data = await getUserData(token, baseURL);
 
     const recipeArr = await getUserRecipes(data.username, baseURL)
+
+    if (!data.profilePicture) {
+      console.log("setting Avatar")
+      handleUpdateAvatar(stateProps, defaultAvatar)
+    }
+
     setSavedRecipes(recipeArr)
     setUserData(data);
     setIsLoggedIn(isAuthenticated());
@@ -217,7 +223,6 @@ export async function handleExtractRecipe(stateProps) {
 }
 
   export async function getUserRecipes(userId, baseURL) {
-      console.log("x")
     try {
       const response = await axios.get(`${baseURL}/recipes/${userId}`);
       const recipes = response.data.recipes;
@@ -391,5 +396,38 @@ export async function handleExtractRecipe(stateProps) {
     }
   }
   
+  export async function handleUpdateAvatar(stateProps, avatarSrc) {
+    
+    const {baseURL, setUserData, setSuccessMessage, setErrorMessage} = stateProps
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.put(
+        `${baseURL}/update-profile-picture`,
+        { avatar: avatarSrc },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        const data = await getUserData(token, baseURL);
+        setUserData(data)
+        setSuccessMessage(prevSuccess => ({
+          ...prevSuccess,
+          home: "Profile picture updated successfully"
+        }))
+      }
+    } catch (error) {
+      setErrorMessage(prevError => ({
+        ...prevError,
+        home: {
+          message: "Failed to update profile picture",
+          err: "Failed to update profile picture"
+        }
+      }))
+    }
+  };
 
 

@@ -143,9 +143,25 @@
             }
         }
 
+        .settings {
+            //border: 1px solid red;
+            display: flex;
+            flex-direction: column;
+            //gap: 0.4rem;
+            padding: 1rem;
+            min-width: 400px;
+
+            input {
+                @include input;
+                width: 50px;
+                text-align: center;
+                font-size: 1rem;
+            }
+        }
+
         
     }
-
+    //DevMode Temp Form
     .dev-mode-form {
         padding: 1rem;
 

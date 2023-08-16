@@ -1,157 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Popup from 'reactjs-popup';
-
-export function PopupIngred(props) {
-
-    const [open, setOpen] = useState(false);  
-    const [ingredients, setIngredients] = useState([]);
-
-    useEffect(() => {
-        setIngredients(props.recipe.ingredients);
-      }, [props.recipe.ingredients]);
-
-      const handleAddIngredient = () => {
-        setIngredients((prevIngredients) => [...prevIngredients, '']);
-      };
-
-    const handleRemoveIngredient = (index) => {
-        setIngredients((prevIngredients) => prevIngredients.filter((_, i) => i !== index));
-    };
-
-    const handleIngredientChange = (index, value) => {
-        setIngredients((prevIngredients) => {
-        const updatedIngredients = [...prevIngredients];
-        updatedIngredients[index] = value;
-        return updatedIngredients;
-        });
-    };
-
-    function handleSaveChanges() {
-        setOpen(false)
-        props.setRecipe(prev => {
-            return {
-                ...prev,
-                ingredients: ingredients.filter(Boolean),
-            }
-        })
-    }
-
-    const handleCancelChanges = () => {
-        setOpen(false);
-        setIngredients(props.recipe.ingredients);
-      };
-
-
-    return (
-    <>
-        <button onClick={() => setOpen(o => !o)}>Edit ingredients</button>
-        <Popup className="popup" position="right" open={open}>
-            <div className="ingred-list">
-            <p>Ingredients</p>
-            <ul className="editable">
-                {ingredients.map((ingredient, index) => (
-                <li key={index} className="list">
-                    <input
-                    type="text"
-                    value={ingredient}
-                    onChange={(e) => handleIngredientChange(index, e.target.value)}
-                    />
-                    <button onClick={() => handleRemoveIngredient(index)}><span>X</span></button>
-                </li>
-                ))}
-                <button className="add" onClick={handleAddIngredient}>
-                Add Ingredient
-            </button>
-            </ul>
-            
-            <button className="save" onClick={handleSaveChanges}>
-                Save
-            </button>
-            <button className="cancel" onClick={handleCancelChanges}>
-                Cancel
-            </button>
-            </div>
-        </Popup>
-    </>
-        
-    )
-}
-
-export function PopupInstruct(props) {
-
-    const [open, setOpen] = useState(false);  
-    const [instructions, setInstructions] = useState([]);
-
-    useEffect(() => {
-        setInstructions(props.recipe.instructions);
-      }, [props.recipe.instructions]);
-
-    const handleAddInstructions = () => {
-        setInstructions((prevInstructions) => [...prevInstructions, '']);
-    };
-
-    const handleRemoveInstructions = (index) => {
-        setInstructions((prevInstructions) => prevInstructions.filter((_, i) => i !== index));
-    };
-
-    const handleInstructionChange = (index, value) => {
-        setInstructions((prevInstructions) => {
-        const updatedInstructions = [...prevInstructions];
-        updatedInstructions[index] = {text: value};
-        return updatedInstructions;
-        });
-    };
-
-    function handleSaveChanges() {
-        setOpen(false)
-        props.setRecipe(prev => {
-            return {
-                ...prev,
-                instructions: instructions
-            }
-        })
-    }
-
-    const handleCancelChanges = () => {
-        setOpen(false);
-        setInstructions(props.recipe.instructions);
-      };
-
-    return (
-    <>
-        <button onClick={() => setOpen(o => !o)}>Edit instructions</button>
-        <Popup className="popup" position="right" open={open}>
-            <div className="ingred-list">
-            <p>Instructions</p>
-            <ul className="editable">
-                {instructions.map((instruction, index) => (
-                <li key={index} className="list">
-                    <input
-                    type="text"
-                    value={instruction.text}
-                    onChange={(e) => handleInstructionChange(index, e.target.value)}
-                    />
-                    <button onClick={() => handleRemoveInstructions(index)}><span class="material-symbols-outlined">close</span></button>
-                </li>
-                ))}
-                <button className="add" onClick={handleAddInstructions}>
-                Add Instructions
-            </button>
-            </ul>
-            
-            <button className="save" onClick={handleSaveChanges}>
-                Save
-            </button>
-            <button className="cancel" onClick={handleCancelChanges}>
-                Cancel
-            </button>
-            </div>
-        </Popup>
-    </>
-        
-    )
-}
 
 export function PopupImageUpload(props) {
     const [open, setOpen] = useState(false);
@@ -236,5 +85,39 @@ export function PopupImageUpload(props) {
         </Popup>
       </>
     );
+  }
+
+  export function SettingsPopup(props) {
+
+    const {userData, setRecipesPerPage} = props.stateProps
+    const [rpp, setRpp] = useState(6)
+
+    function handleRPP(e) {
+      setRpp(e.target.value)
+    }
+
+    function handlesaveSettings() {
+      setRecipesPerPage(rpp)
+      props.setOpen(o => !o)
+    }
+    
+    return (
+      <Popup className="popup" open={props.open}>
+        <div className="settings">
+          <h2>Settings</h2>
+          <br/>
+          <p>{userData.username}</p>
+          <br/>
+          <label htmlFor='recipes-per-page'>Recipes Per Page: 
+          <input type="number" id="recipes-per-page" value={rpp} onChange={handleRPP}/>
+          </label>
+          <div>
+          <button className="save" onClick={handlesaveSettings}>Save Changes</button>
+          <button className="cancel" onClick={() => props.setOpen(o => !o)}>Cancel Changes</button>
+          </div>
+          
+        </div>
+      </Popup>
+    )
   }
 

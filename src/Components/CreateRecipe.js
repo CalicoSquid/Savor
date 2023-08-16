@@ -1,4 +1,4 @@
-import { PopupIngred, PopupInstruct, PopupImageUpload } from "./Popups";
+import { PopupImageUpload } from "./Popups";
 import searchImages from "../Utilities/searchImages";
 import { handleSaveRecipe } from "../Utilities/api";
 import { useTimedMessage } from "../Utilities/useTimedMessage";
@@ -29,9 +29,13 @@ export default function CreateRecipe(props) {
         setErrorMessage,
         setShowCreate,
         setIsSaved,
+        setPreviousPage,
+        setShowInstruct,
+        setShowIngred,
     } = props.stateProps
 
     const [isGenerating, setIsGenerating] = useState(false);
+    
 
     async function handleGetImages() {     
         await searchImages(recipeData.name, handleChange, setImages, setIsGenerating, 3)
@@ -50,6 +54,7 @@ export default function CreateRecipe(props) {
         if (existingRecipe) {
             await handleUpdateRecipe(props.stateProps);
             setIsSaved(true)
+            setPreviousPage(1)
         } else {
             await handleSaveRecipe(props.stateProps);
             setIsSaved(true)
@@ -71,6 +76,14 @@ export default function CreateRecipe(props) {
         const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
         return pattern.test(url);
       }
+
+    function handleOpenInstruct() {
+      setShowInstruct(true)
+    }
+
+    function handleOpenIngred() {
+      setShowIngred(true)
+    }
 
     useTimedMessage(props.stateProps, "sideBar");
 
@@ -114,13 +127,15 @@ export default function CreateRecipe(props) {
                     </input>
 
                     <div className="form-buttons">
-                        <PopupIngred recipe={recipeData} setRecipe={setRecipeData}/>
-                        <PopupInstruct recipe={recipeData} setRecipe={setRecipeData} />
+                        <button onClick={handleOpenIngred}>Edit Ingredients</button>
+                        <button onClick={handleOpenInstruct}>Edit Instructions</button>
+
                         <PopupImageUpload setRecipeData={setRecipeData}/>
                         <button 
                         onClick={handleGetImages}
-                        disabled={isGenerating}
-                        >{ !isGenerating ? `Generate New Images` : "Finding images"}
+                        disabled={isGenerating || !recipeData.name}
+                        >
+                            { !isGenerating ? `Generate New Images` : "Finding images"}
                         </button>                  
                     </div>
                     

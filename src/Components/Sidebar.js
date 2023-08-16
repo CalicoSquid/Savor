@@ -9,10 +9,12 @@ import MyRecipes from "./MyRecipes";
 import logo from "../Assets/logo.png";
 import prod from "../Assets/prod.png";
 import dev from "../Assets/dev.png";
+import Instructions from "./Instructions";
+import Ingredients from "./Ingredients";
 
 export default function Sidebar(props) {
 
-    const { setRecipeData, images, handleChange, devMode, setDevMode } = props.stateProps
+    const { setRecipeData, images, handleChange, devMode, setDevMode, showInstruct, showIngred } = props.stateProps
 
     const [showTimes, setShowTimes] = useState(false)
     const [showCreate, setShowCreate] = useState(true)
@@ -61,9 +63,6 @@ export default function Sidebar(props) {
     function handleDevPassword(e) {
         setDevPW(e.target.value)
     }
-
-
-
 
 
     const stateProps = {
@@ -121,7 +120,9 @@ export default function Sidebar(props) {
 
                 <Nav stateProps={stateProps}/>
             </div>
-            {showCreate && <CreateRecipe stateProps={stateProps} />}
+            {showInstruct && <Instructions stateProps={stateProps} />}
+            {showIngred && <Ingredients stateProps={stateProps} />}
+            {(showCreate && !showInstruct && !showIngred) && <CreateRecipe stateProps={stateProps} />}
             {!showCreate && <MyRecipes stateProps={stateProps} /> }
         </div>
     )

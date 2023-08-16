@@ -1,10 +1,12 @@
 
 export default function Nav(props) {
 
-    const {showCreate, setShowCreate} = props.stateProps;
+    const {showCreate, setShowCreate, setShowIngred, setShowInstruct} = props.stateProps;
     
     const handleClick = (tab) => {
         setShowCreate(tab === "home" ? false : true)
+        setShowIngred(false)
+        setShowInstruct(false)
     }
 
     return (

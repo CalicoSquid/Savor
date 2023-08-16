@@ -31,10 +31,7 @@ function FullscreenButton({ fullscreenElement }) {
     };
   
     return (
-      <p className="full-screen" onClick={handleFullscreen}>Go Fullscreen 
-      {" "}
-      <span className="material-symbols-outlined green"> fullscreen</span>
-      </p>
+      <p className="full-screen" onClick={handleFullscreen}>Go Fullscreen</p>
       
     );
   }
