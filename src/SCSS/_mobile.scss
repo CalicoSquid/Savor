@@ -99,7 +99,7 @@
     }
 
     .recipe-card {
-        padding: 0 !important;
+        padding: 1rem !important;
         border: none !important;
         box-shadow: none !important;
 
@@ -131,8 +131,9 @@
     }
 
     .avatar-grid {
-        width: 60% !important;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr !important;
+        //border: 1px solid red;
+        width: 80% !important;
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)) !important;
     }
 
     

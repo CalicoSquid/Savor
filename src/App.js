@@ -41,7 +41,7 @@ function App() {
   const [showInstruct, setShowInstruct] = useState(false)
   const [showIngred, setShowIngred] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-  const [baseURL, setBaseURL] = useState("https://server-puib.onrender.com/api")
+  const [baseURL, setBaseURL] = useState("https://savor-recipes-server.onrender.com/api")
   const [errorMessage, setErrorMessage] = useState({
     recipe: {message: "", err: ""},
     login: {message: "", err: ""},
@@ -107,7 +107,7 @@ function App() {
 
 
   useEffect(() => {
-    devMode ? setBaseURL("http://192.168.1.109:8080/api") : setBaseURL("https://server-puib.onrender.com/api")
+    devMode ? setBaseURL("http://192.168.1.109:8080/api") : setBaseURL("https://savor-recipes-server.onrender.com/api")
   }, [devMode])
 
   useEffect(() => {
