@@ -80,10 +80,9 @@ export default function Sidebar(props) {
     return (
         <div className="sidebar">
             <div className="title-bar">
-              <img src={darkMode ? logoWhite : logo} className="logo-img" style={{height: "100px"}} alt="Measuring spoons logo"/>
-                <div className="logo-text">
+              <img src={darkMode ? logoWhite : logo} className="logo-img" style={{height: "80px"}} alt="Measuring spoons logo"/>
+              <div className="logo-text">
                   <h1 className="logo-title">Savor</h1>
-                  
                 </div>
 
                 <Popup 

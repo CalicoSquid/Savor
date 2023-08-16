@@ -20,20 +20,22 @@
             top: 0;
             left: 0;
             background-color: #fff;
-            padding-block: 0.7rem;
             width: 30%;
             border-right: 3px solid lightgray;
             z-index: 1000;
             display: flex;
             gap: 1rem;
             justify-content: center;
-
+            align-items: center;
+            border: 1px solid red;
 
             .logo-text {
 
+
                 .logo-title {
                     @include title;
-                    font-size: 4rem;
+                    font-style: italic;
+                    font-size: 4.5rem;
                 }
             }
         }
@@ -44,6 +46,7 @@
 
             .side-header {
                 font-family: Lora, serif;
+                font-style: italic;
                 font-size: 1.7rem;
             }
 
