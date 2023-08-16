@@ -65,7 +65,6 @@ export default function AvatarSelectionPage(props) {
 
   return (
     <div className="avatar-selection-page">
-      <p>Choose Your Chef</p>
       <AvatarSelector onSelectAvatar={props.handleAvatarSelect}/>
     </div>
   );

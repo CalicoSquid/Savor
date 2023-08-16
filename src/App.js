@@ -41,6 +41,7 @@ function App() {
   const [showInstruct, setShowInstruct] = useState(false)
   const [showIngred, setShowIngred] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
+  const [darkMode, setDarkMode] = useState(false)
   const [baseURL, setBaseURL] = useState("https://savor-recipes-server.onrender.com/api")
   const [errorMessage, setErrorMessage] = useState({
     recipe: {message: "", err: ""},
@@ -222,6 +223,7 @@ function App() {
     showInstruct,
     showIngred,
     showSettings,
+    darkMode,
     setIsLoggedIn,
     setFormData,
     handleLoginChange,
@@ -247,12 +249,13 @@ function App() {
     setPreviousPage,
     setShowInstruct,
     setShowIngred,
-    setShowSettings
+    setShowSettings,
+    setDarkMode
 
     }
 
   return (
-    <div className="App">
+    <div className={`App ${darkMode ? "dark" : ""}`}>
       <Main stateProps={stateProps} />
     </div>
   );

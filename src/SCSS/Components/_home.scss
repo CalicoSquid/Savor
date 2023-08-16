@@ -70,7 +70,7 @@
                 margin: 0;
             }
 
-            p {
+            .desktop-text {
                 position: absolute;
                 bottom: 0;
                 left: 0;
@@ -83,6 +83,10 @@
                 overflow: hidden; 
                 text-overflow: ellipsis; 
 
+            }
+
+            .mobile-text {
+                //margin-bottom: 1rem;
             }
 
             

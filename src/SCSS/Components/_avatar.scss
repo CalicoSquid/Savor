@@ -1,22 +1,18 @@
 .avatar-selection-page {
     width: 100%;
-    margin-block: 2rem;
+    //border: $input-border;
     
     .avatar-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr ;
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)) !important;
         gap: 1rem;
         margin-bottom: 1rem;
-        //width: 100% !important;
-        margin: auto;
-        //border: $input-border;
+        //margin: auto;
+        
         padding: 1rem;
         border-radius: 5px;
         //box-shadow: $box-shadow-main;
     
-        img {
-    
-        }
     
         .avatar-option {
             cursor: pointer;

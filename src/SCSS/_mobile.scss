@@ -120,6 +120,16 @@
         }
     }
 
+    .recipe-image-grid {
+ 
+        .desktop-text {
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
     .home-head-container {
         width: 100% !important;
         top: 159px;

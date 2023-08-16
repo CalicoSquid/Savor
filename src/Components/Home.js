@@ -34,6 +34,7 @@ export default function Home(props) {
       setPreviousPage,
       showSettings,
       userData,
+      setDarkMode
     } = props.stateProps;
 
     const [hoveredIndex, setHoveredIndex] = useState(-1);
@@ -43,12 +44,28 @@ export default function Home(props) {
     const [filteredRecipes, setFilteredRecipes] = useState([]);
     const [selectedAvatar, setSelectedAvatar] = useState(avatar);
     const [imgSrc, setImgSrc] = useState("")
+    const [displayName, setDisplayName] = useState(userData.username)
 
     const recipesPerPage = 6;
     const totalPages = Math.ceil(filteredRecipes.length / recipesPerPage);
     const startIndex = (currentPage - 1) * recipesPerPage;
     const endIndex = startIndex + recipesPerPage;
     const recipesToDisplay = filteredRecipes.slice(startIndex, endIndex);
+
+    useEffect(() => {
+      const storedDisplayName = localStorage.getItem(`userDisplayName_${userData.username}`);
+      if (storedDisplayName) {
+        setDisplayName(storedDisplayName);
+      }
+
+      const storedDarkMode = localStorage.getItem(`userDarkMode_${userData.username}`);
+    if (storedDarkMode) {
+      setDarkMode(storedDarkMode === 'true');
+    } else {
+      setDarkMode(false)
+    }
+      // eslint-disable-next-line
+    }, []); 
 
     useEffect(() => {
         const filtered = savedRecipes.filter(recipe =>
@@ -153,7 +170,6 @@ export default function Home(props) {
           </p>
           <br/>
           <img src={empty} alt="empty avocado"/>
-          <button onClick={handleLogout} className="logout">Logout</button>
         </div>
       )
     }
@@ -178,7 +194,7 @@ export default function Home(props) {
             />
     
             {(showButtons || isMobile) && (
-              <div>
+              <div style={{cursor: "pointer"}}>
                 <img 
                 src={recipe.isFavorite ? starFilled : star} 
                 onClick={() => handleFavorite(index)}
@@ -191,7 +207,8 @@ export default function Home(props) {
                 >
                   X
                 </button>
-                <p>{recipe.name}</p>
+                <p className="desktop-text" onClick={() => handleShowRecipe(recipe)} >{recipe.name}</p>
+                
               </div>
             )}
     
@@ -240,6 +257,8 @@ export default function Home(props) {
           setSelectedAvatar={setSelectedAvatar}
           imgSrc={imgSrc}
           setImgSrc={setImgSrc}
+          displayName={displayName}
+          setDisplayName={setDisplayName}
           /> : 
             <div>
               
@@ -249,7 +268,7 @@ export default function Home(props) {
               <br/>
               {recipeArray.length > 0 ? 
               <>
-              <h2>{`${userData.username}'s Recipes`}</h2>
+              <h2>{`${displayName}'s Recipes`}</h2>
               <br/>
               <Pagify pagifyProps={pagifyProps}/>
               <br/>
@@ -261,6 +280,8 @@ export default function Home(props) {
               :<>
               <br/>
               <h2>No Recipes found!</h2>
+              <br/>
+              <p onClick={() => setPrompt("")} style={{cursor: "pointer"}}><span className="green">←</span> Go Back</p>
               </>
               
                }

@@ -7,6 +7,7 @@ import CreateRecipe from "./CreateRecipe";
 import MyRecipes from "./MyRecipes";
 
 import logo from "../Assets/logo.png";
+import logoWhite from "../Assets/logo-white.png"
 import prod from "../Assets/prod.png";
 import dev from "../Assets/dev.png";
 import Instructions from "./Instructions";
@@ -14,7 +15,7 @@ import Ingredients from "./Ingredients";
 
 export default function Sidebar(props) {
 
-    const { setRecipeData, images, handleChange, devMode, setDevMode, showInstruct, showIngred } = props.stateProps
+    const { setRecipeData, images, handleChange, devMode, setDevMode, showInstruct, showIngred, darkMode } = props.stateProps
 
     const [showTimes, setShowTimes] = useState(false)
     const [showCreate, setShowCreate] = useState(true)
@@ -79,7 +80,7 @@ export default function Sidebar(props) {
     return (
         <div className="sidebar">
             <div className="title-bar">
-              <img src={logo} className="logo-img" style={{height: "100px"}} alt="Measuring spoons logo"/>
+              <img src={darkMode ? logoWhite : logo} className="logo-img" style={{height: "100px"}} alt="Measuring spoons logo"/>
                 <div className="logo-text">
                   <h1 className="logo-title">Savor</h1>
                   
