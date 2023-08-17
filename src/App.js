@@ -26,6 +26,7 @@ function App() {
   const [loginError, setLoginError] = useState(null)
   const [passwordStrength, setPasswordStrength] = useState("");
   const [savedRecipes, setSavedRecipes] = useState([])
+  
   const [userData, setUserData] = useState({
     createdAt: "",
     email: "",

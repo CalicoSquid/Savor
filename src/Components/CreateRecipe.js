@@ -3,6 +3,8 @@ import searchImages from "../Utilities/searchImages";
 import { handleSaveRecipe } from "../Utilities/api";
 import { useTimedMessage } from "../Utilities/useTimedMessage";
 import { useState } from "react";
+import { nanoid } from "nanoid";
+
 
 import food from "../Assets/ff-default-recipe.png"
 
@@ -85,7 +87,7 @@ export default function CreateRecipe(props) {
       setShowIngred(true)
     }
 
-    useTimedMessage(props.stateProps, "sideBar");
+    useTimedMessage(props.stateProps, "sidebar");
 
 
     return (
@@ -143,7 +145,11 @@ export default function CreateRecipe(props) {
                         {
                         images.length > 0 ? images : 
                         <div className="img-wrapper">
-                            <img src={recipeData.image ? recipeData.image : food} alt={recipeData.name}/>
+                            <img 
+                            src={recipeData.image ? recipeData.image : food} 
+                            alt={recipeData.name}
+                            onClick={() => setRecipeData(x => ({...x, image: recipeData.image ? recipeData.image : food}))}
+                            />
                         </div>
                         }
                     </div>

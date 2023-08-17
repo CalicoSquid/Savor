@@ -16,7 +16,11 @@
     
         .avatar-option {
             cursor: pointer;
-        }
+
+            img {
+            //height: 50px;
+            width: 50px;
+            }
     
         .selected {
             transform: scale(1.2); /* Add the border color for the selected avatar */
@@ -25,3 +29,4 @@
 }
 
 
+}

@@ -267,7 +267,7 @@ export async function handleExtractRecipe(stateProps) {
         `${baseURL}/save-recipe`,
         {
           userId: userData.username,
-          recipeId,
+          recipeId: recipeId ? recipeId : nanoid(),
           name,
           description,
           ingredients,

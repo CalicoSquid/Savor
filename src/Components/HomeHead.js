@@ -14,7 +14,7 @@ export default function HomeHead(props) {
     return (
         <div className="home-head-container">
             <div className="home-head-user">
-                <img src={props.imgSrc ? props.imgSrc : userData.profilePicture} alt="avatar" style={{height: "40px"}}/>
+                <img src={props.imgSrc ? props.imgSrc : userData.profilePicture} alt="avatar"/>
                 
             </div>
 
@@ -33,8 +33,6 @@ export default function HomeHead(props) {
 
             
                 <div className="home-head-buttons">
-                    
-                 
                     <img 
                     src={darkMode ? gearWhite :gear} 
                     alt="settings" 
@@ -46,8 +44,7 @@ export default function HomeHead(props) {
                     alt="logout" 
                     style={{height: "30px", cursor: "pointer"}}
                     onClick={props.handleLogout}
-                    />
-                    
+                    />              
                 </div>          
 
                 
