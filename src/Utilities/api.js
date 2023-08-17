@@ -3,8 +3,9 @@ import { parse } from 'tinyduration';
 
 import { nanoid } from 'nanoid';
 
-import defaultImg from "../Assets/ff-default-recipe.png"
+import defaultImg from "../Assets/ff-default-recipe.png";
 import defaultAvatar from '../Assets/Avatars/AVT-13.png';
+import food from "../Assets/ff-default-recipe.png";
 
 
 export async function getUserData(token, baseURL) {
@@ -273,7 +274,7 @@ export async function handleExtractRecipe(stateProps) {
           ingredients,
           instructions,
           author,
-          image,
+          image: image ? image : food,
           isFavorite,
           recipeYield,
           times,
@@ -291,7 +292,7 @@ export async function handleExtractRecipe(stateProps) {
         setSavedRecipes(recipes);
         setSuccessMessage((prevSuccess) => ({
           ...prevSuccess,
-          home: 'Recipe saved successfully',
+          home: 'Recipe saved',
         }));
       }
     } catch (error) {
@@ -374,7 +375,7 @@ export async function handleExtractRecipe(stateProps) {
   
         setSuccessMessage((prevSuccess) => ({
           ...prevSuccess,
-          home: 'Recipe updated successfully',
+          home: 'Recipe updated',
         }));
       } else {
         setErrorMessage((prevError) => ({
@@ -416,15 +417,15 @@ export async function handleExtractRecipe(stateProps) {
         setUserData(data)
         setSuccessMessage(prevSuccess => ({
           ...prevSuccess,
-          home: "Profile picture updated successfully"
+          home: "Avatar updated"
         }))
       }
     } catch (error) {
       setErrorMessage(prevError => ({
         ...prevError,
         home: {
-          message: "Failed to update profile picture",
-          err: "Failed to update profile picture"
+          message: "Failed to update profile",
+          err: "Failed to update profile"
         }
       }))
     }
