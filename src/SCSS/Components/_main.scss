@@ -113,7 +113,6 @@
         }
 
         .form-buttons {
-            //border: 1px solid red;
             width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -157,11 +156,16 @@
 
         .save {
             @include green-button;
-            width: 100%;
+            width: 48%;
 
             &:hover {
                 background-color: #3e8f41 !important;
             }
+        }
+
+        .cancel {
+            @include black-button;
+            width: 48%;
         }
 
     }

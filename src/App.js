@@ -15,7 +15,7 @@ import {
   handleDeleteRecipe,
   getUserRecipes,
   handleUpdateRecipe,
-  } from "./Utilities/api";
+  } from "./Api/api";
 
 function App() {
 

@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 import { useState, useEffect } from "react"
 
 import searchImages from "../Utilities/searchImages";
-import { handleExtractRecipe } from "../Utilities/api";
+import { handleExtractRecipe } from "../Api/api";
 import searchNestedObj from "../Utilities/searchNestedObj";
 import parseInstruct from "../Utilities/parseInstructions";
 

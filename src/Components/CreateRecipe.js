@@ -1,12 +1,10 @@
 import { PopupImageUpload } from "./Popups";
 import searchImages from "../Utilities/searchImages";
-import { handleSaveRecipe } from "../Utilities/api";
+import { handleSaveRecipe } from "../Api/api";
 import { useTimedMessage } from "../Utilities/useTimedMessage";
 import { useState } from "react";
-import { nanoid } from "nanoid";
 
-
-import food from "../Assets/ff-default-recipe.png"
+import food from "../Assets/no-image.jpg"
 
 export default function CreateRecipe(props) {
     
@@ -59,6 +57,7 @@ export default function CreateRecipe(props) {
             setPreviousPage(1)
         } else {
             await handleSaveRecipe(props.stateProps);
+
             setIsSaved(true)
         }
         } else {
@@ -184,16 +183,6 @@ export default function CreateRecipe(props) {
                     >
                     </input>
 
-                    <small>Link</small>
-                    <input 
-                    type="text" 
-                    name="url" 
-                    placeholder="URL" 
-                    onChange={handleChange}
-                    value={recipeData.url}
-                    >
-                    </input>
-
                     <button onClick={handleToggle}>Add cooking times</button>
                     {showTimes && 
                     <div className="times-wrapper">
@@ -242,11 +231,31 @@ export default function CreateRecipe(props) {
                     </div>
                     
                 </div>
-            </div>    
-                    }
+            </div>}
+
             {successMessage.sidebar && <p className="green">{successMessage.sidebar}</p>}
             {errorMessage.sidebar.message && <p className="error">{errorMessage.sidebar.message}</p>}
-            <button className="save" onClick={() => handleSaveOrUpdateRecipe(recipeData)}>Save Recipe</button>
+
+            <div className="create-recipe-buttons">
+                <button className="save" onClick={() => handleSaveOrUpdateRecipe(recipeData)}>Save Recipe</button>
+                <button className="cancel" onClick={() => setRecipeData({
+                    recipeId: "",
+                    name: "",
+                    description: "",
+                    ingredients: [],
+                    instructions: [],
+                    image: "",
+                    author: "",
+                    recipeYield: "",
+                    isFavorite: false,
+                    times: {
+                        cook: "",
+                        prep: "",
+                        total: "",
+                    }
+                    })}>Clear Recipe</button>
+            </div>
+            
             </div>
         </div>    
     )
