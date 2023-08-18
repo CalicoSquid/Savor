@@ -110,10 +110,6 @@
             .recipe-info {
                 justify-content: center;
 
-                .author {
-                    //width: 0;
-                } 
-
             }
 
             
@@ -123,10 +119,14 @@
     .recipe-image-grid {
  
         .desktop-text {
-            height: 50px;
+            font-size: 0.8rem;
+            //font-weight: 600;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 50px;
+            overflow-y: hidden;
+            padding: 0.1rem !important;
         }
     }
 
