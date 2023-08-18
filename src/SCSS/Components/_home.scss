@@ -9,12 +9,8 @@
     left: 0;
     right:0;
     padding-inline: 2rem;
-    padding-block: 1rem;
     box-sizing: border-box;
     @include scroll;
-    
-    
-    
 
     .pagify {
 
@@ -34,7 +30,6 @@
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 1fr;
         gap: 1rem;
-        //border: 1px solid red;
 
         .recipe-img-wrapper {
             background-color: #f0f0f0;
@@ -58,8 +53,7 @@
                 width: 15%;
                 cursor: pointer;
                 z-index: 9998;
-                //background-color: #333333;
-                //border-radius: 5px;
+
             }
 
             button {
@@ -79,14 +73,9 @@
                 background: hsla(0, 100%, 100%, 0.5);
                 backdrop-filter: blur(1rem);
                 padding: 1rem;
-                //white-space: nowrap; 
                 overflow: hidden; 
                 text-overflow: ellipsis; 
 
-            }
-
-            .mobile-text {
-                //margin-bottom: 1rem;
             }
 
             

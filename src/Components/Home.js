@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Popup from 'reactjs-popup';
 
 import Pagify from "./Pagify";
+import Footer from "./Footer";
 import HomeHead from "./HomeHead";
 import { Settings } from "./Settings";
 import { useTimedMessage } from "../Utilities/useTimedMessage";
@@ -261,7 +262,6 @@ export default function Home(props) {
           setDisplayName={setDisplayName}
           /> : 
             <div>
-              
               <br/>
               {errorMessage.home.message && <><br/><p className="error">{errorMessage.home.message}</p></>}
               {successMessage.home && <><br/><p className="green">{successMessage.home}</p></>}
@@ -287,9 +287,6 @@ export default function Home(props) {
                }
               <br/>
             </div>}
-            <br/>
-            
-            
         </div>
       ) 
     

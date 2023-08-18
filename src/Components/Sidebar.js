@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 
 import Popup from 'reactjs-popup';
-
+import Footer from "./Footer";
 import Nav from "./Nav";
 import CreateRecipe from "./CreateRecipe";
 import MyRecipes from "./MyRecipes";
@@ -117,13 +117,14 @@ export default function Sidebar(props) {
   )}
 
                 </Popup>
-
                 <Nav stateProps={stateProps}/>
+
             </div>
             {showInstruct && <Instructions stateProps={stateProps} />}
             {showIngred && <Ingredients stateProps={stateProps} />}
             {(showCreate && !showInstruct && !showIngred) && <CreateRecipe stateProps={stateProps} />}
-            {!showCreate && <MyRecipes stateProps={stateProps} /> }
+            {!showCreate && <MyRecipes stateProps={stateProps} />}
+                            
         </div>
     )
 }

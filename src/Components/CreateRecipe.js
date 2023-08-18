@@ -2,6 +2,7 @@ import { PopupImageUpload } from "./Popups";
 import searchImages from "../Utilities/searchImages";
 import { handleSaveRecipe } from "../Api/api";
 import { useTimedMessage } from "../Utilities/useTimedMessage";
+import Footer from "./Footer";
 import { useState } from "react";
 
 import food from "../Assets/no-image.jpg"

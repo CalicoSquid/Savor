@@ -1,0 +1,20 @@
+footer {
+    display: flex;
+    justify-content: center;
+    //border-top: 1px solid $green-theme;
+    padding-block: 0.6rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: $green-theme;
+    color: white;
+
+    img {
+        height: 40px;
+        position: absolute;
+        top: -22px;
+        right: -5px;;
+    }
+
+}
