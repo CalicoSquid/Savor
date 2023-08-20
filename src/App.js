@@ -9,13 +9,13 @@ import checkPasswordStrength from "./Utilities/checkPassword";
 import isAuthenticated from "./Utilities/auth";
 
 import { 
-  getUserData,
-  handleRegister,
-  handleSubmit,
+
   handleDeleteRecipe,
-  getUserRecipes,
   handleUpdateRecipe,
-  } from "./Api/api";
+  } from "./Api/recipeApi";
+
+  import { getUserData, getUserRecipes } from "./Api/userApi";
+import { handleSubmit, handleRegister } from "./Api/authApi";
 
 function App() {
 
@@ -26,15 +26,6 @@ function App() {
   const [loginError, setLoginError] = useState(null)
   const [passwordStrength, setPasswordStrength] = useState("");
   const [savedRecipes, setSavedRecipes] = useState([])
-  
-  const [userData, setUserData] = useState({
-    createdAt: "",
-    email: "",
-    password: "",
-    profilePicture: defaultAvatar,
-    updatedAt: "",
-    username: ""
-  });
   const [isSaved, setIsSaved] = useState(true)
   const [devMode, setDevMode] = useState(false)
   const [previousPage, setPreviousPage] = useState(1);
@@ -44,6 +35,7 @@ function App() {
   const [showSettings, setShowSettings] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
   const [baseURL, setBaseURL] = useState("https://savor-recipes-server.onrender.com/api")
+
   const [errorMessage, setErrorMessage] = useState({
     recipe: {message: "", err: ""},
     login: {message: "", err: ""},
@@ -51,16 +43,27 @@ function App() {
     home: {message: "", err: ""},
     sidebar: {message: "", err: ""},
     })
+
   const [successMessage, setSuccessMessage] = useState({
     home: "",
     login: "",
     sidebar: "",
   })
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   })
+
+  const [userData, setUserData] = useState({
+    createdAt: "",
+    email: "",
+    password: "",
+    profilePicture: defaultAvatar,
+    updatedAt: "",
+    username: ""
+  });
 
   const [recipeData, setRecipeData] = useState({
       recipeId: "",

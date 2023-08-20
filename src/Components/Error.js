@@ -1,9 +1,11 @@
+import { sendEmail } from "../Api/emailApi";
 
 export default function Error(props) {
 
-    const { errorMessage, setErrorMessage } = props.stateProps
+    const { errorMessage, setErrorMessage, userData } = props.stateProps
 
     function handleError() {
+        sendEmail(userData.email, errorMessage.recipe.err)
         setErrorMessage({
             recipe: {message: "", err: ""},
             login: {message: "", err: ""},
@@ -11,8 +13,7 @@ export default function Error(props) {
             home: {message: "", err: ""},
             sidebar: {message: "", err: ""},
         })
-        console.log(errorMessage.recipe.err)
-        //Set up nodemailer here...
+        
     }
 
     return (

@@ -4,13 +4,14 @@ import Sidebar from "./Sidebar";
 import { useState, useEffect } from "react"
 
 import searchImages from "../Utilities/searchImages";
-import { handleExtractRecipe } from "../Api/api";
+import { handleExtractRecipe } from "../Api/recipeApi";
 import searchNestedObj from "../Utilities/searchNestedObj";
 import parseInstruct from "../Utilities/parseInstructions";
 
 export default function Main(props) {
 
     const {setRecipeData, recipeData, setIsSaved} = props.stateProps;
+    
     const [images, setImages] = useState([])
     const [url, setUrl] = useState('');
     const [showRecipeMobile, setShowRecipeMobile] = useState(false);

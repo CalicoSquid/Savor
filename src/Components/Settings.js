@@ -1,4 +1,4 @@
-import {handleUpdateAvatar} from "../Api/api"
+import { handleUpdateAvatar } from "../Api/userApi"
 import AvatarSelectionPage from "./Avatar"
 import gear from "../Assets/settings.png"
 import gearWhite from "../Assets/settings-white.png"

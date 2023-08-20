@@ -1,8 +1,7 @@
 import { PopupImageUpload } from "./Popups";
 import searchImages from "../Utilities/searchImages";
-import { handleSaveRecipe } from "../Api/api";
+import { handleSaveRecipe } from "../Api/recipeApi";
 import { useTimedMessage } from "../Utilities/useTimedMessage";
-import Footer from "./Footer";
 import { useState } from "react";
 
 import food from "../Assets/no-image.jpg"
@@ -33,6 +32,7 @@ export default function CreateRecipe(props) {
         setPreviousPage,
         setShowInstruct,
         setShowIngred,
+        userData
     } = props.stateProps
 
     const [isGenerating, setIsGenerating] = useState(false);
@@ -122,7 +122,7 @@ export default function CreateRecipe(props) {
                     <input 
                         type="text" 
                         name="name" 
-                        placeholder="Title" 
+                        placeholder="Add title" 
                         value={recipeData.name} 
                         onChange={handleChange}
                     >
@@ -178,7 +178,7 @@ export default function CreateRecipe(props) {
                     <input 
                     type="text" 
                     name="author" 
-                    placeholder="Author" 
+                    placeholder={userData.username ? userData.username : "Author"} 
                     onChange={handleChange}
                     value={recipeData.author}
                     >

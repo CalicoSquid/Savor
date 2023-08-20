@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 
 import Popup from 'reactjs-popup';
-import Footer from "./Footer";
 import Nav from "./Nav";
 import CreateRecipe from "./CreateRecipe";
 import MyRecipes from "./MyRecipes";
@@ -18,7 +17,7 @@ export default function Sidebar(props) {
     const { setRecipeData, images, handleChange, devMode, setDevMode, showInstruct, showIngred, darkMode } = props.stateProps
 
     const [showTimes, setShowTimes] = useState(false)
-    const [showCreate, setShowCreate] = useState(true)
+    const [showCreate, setShowCreate] = useState(false)
 
     const [devPW, setDevPW] = useState("")
     const [correctPW, setCorrectPW] = useState(true)

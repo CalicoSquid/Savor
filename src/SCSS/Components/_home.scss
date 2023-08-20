@@ -95,9 +95,10 @@
 }
 
 .empty {
-    margin-top: 2rem;
+    margin-top: 200px;
     display: flex;
     flex-direction: column;
+    //border: 1px solid red;
 
     button {
         @include black-button;
