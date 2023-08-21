@@ -1,30 +1,35 @@
-import axios from "axios";
+import axios from 'axios';
 
-const apiKey = '47F473F2837568D9723E40063FCAF05121E41C1360DF8D1AB13E695B174D710E73B82AB6C3605C579CA0D8BABD495497';
-const baseUrl = 'https://api.elasticemail.com/v2';
+export async function sendErrorEmail(userEmail, error, baseURL, url) {
 
+  const emailSubject = 'Error Report';
+  const fromEmail = 'calicosquidcode@gmail.com';
+  const toEmail = 'calicosquidcode@gmail.com';
+  const emailContent = `Error report from user ${userEmail}:\n\n${error}\n\n URL:\n\n${url}`;
 
-export async function sendEmail(userEmail, error) {
-    console.log("sending")
-    const emailData = {
-      subject: 'Savor the Flavor',
-      from: userEmail,
-      to: 'calicosquidcode@gmail.com',
-      bodyHtml: `<p>This is the HTML content of the email.</p>`,
-    };
-  
+  const emailData = {
+    subject: emailSubject,
+    from: fromEmail,
+    to: toEmail,
+    html: emailContent, // Use the 'html' field for plain text content in this case
+  };
+
+  try {
+    await axios.post(`${baseURL}/send-email`, emailData);
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+}
+
+export async function sendWelcomeEmail(userEmail, userName, baseURL) {
     try {
-      const response = await axios.post(`${baseUrl}/email/send`, emailData, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Token': apiKey,
-        },
+      const response = await axios.post(`${baseURL}/send-welcome-email`, {
+        userEmail,
+        userName,
       });
-      console.log(response)
-      //console.log('Email sent successfully:', response.data);
+      console.log('Welcome email sent successfully:', response.data.message);
     } catch (error) {
-        console.log("ERROR")
-      //console.error('Error sending email:', error.response.data);
+      console.error('Error sending welcome email:', error);
     }
   }
-  

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-import defaultAvatar from './Assets/Avatars/AVT-13.png';
+import defaultAvatar from './Assets/Avatars/AVT-1.png';
 
 import './SCSS/index.scss';
 
@@ -8,13 +8,8 @@ import Main from './Components/Main';
 import checkPasswordStrength from "./Utilities/checkPassword";
 import isAuthenticated from "./Utilities/auth";
 
-import { 
-
-  handleDeleteRecipe,
-  handleUpdateRecipe,
-  } from "./Api/recipeApi";
-
-  import { getUserData, getUserRecipes } from "./Api/userApi";
+import { handleDeleteRecipe, handleUpdateRecipe } from "./Api/recipeApi";
+import { getUserData, getUserRecipes } from "./Api/userApi";
 import { handleSubmit, handleRegister } from "./Api/authApi";
 
 function App() {

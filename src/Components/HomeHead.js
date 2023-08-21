@@ -3,9 +3,9 @@ import logout from "../Assets/logout.png"
 import gearWhite from "../Assets/settings-white.png"
 import logoutWhite from "../Assets/logout-white.png"
 
-export default function HomeHead(props) {
+export default function HomeHead({stateProps, prompt, setPrompt, handleLogout, imgSrc}) {
 
-    const {userData, setShowSettings, darkMode} = props.stateProps;
+    const {userData, setShowSettings, darkMode} = stateProps;
 
     function handleSettings() {
         setShowSettings(s => !s)
@@ -14,7 +14,7 @@ export default function HomeHead(props) {
     return (
         <div className="home-head-container">
             <div className="home-head-user">
-                <img src={props.imgSrc ? props.imgSrc : userData.profilePicture} alt="avatar"/>
+                <img src={imgSrc ? imgSrc : userData.profilePicture} alt="avatar"/>
                 
             </div>
 
@@ -24,8 +24,8 @@ export default function HomeHead(props) {
                     className="search" 
                     placeholder="Search"
                     name="search"
-                    value={props.prompt}
-                    onChange={props.handleSearch}
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
                     />
                     
                 </div>
@@ -43,7 +43,7 @@ export default function HomeHead(props) {
                     src={darkMode ? logoutWhite : logout} 
                     alt="logout" 
                     style={{height: "30px", cursor: "pointer"}}
-                    onClick={props.handleLogout}
+                    onClick={handleLogout}
                     />              
                 </div>          
 

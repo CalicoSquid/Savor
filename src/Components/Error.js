@@ -1,11 +1,22 @@
-import { sendEmail } from "../Api/emailApi";
+import { sendErrorEmail } from "../Api/emailApi";
 
 export default function Error(props) {
 
-    const { errorMessage, setErrorMessage, userData } = props.stateProps
+    const { 
+        errorMessage, 
+        setErrorMessage, 
+        setSuccessMeesage, 
+        userData, 
+        baseURL, 
+        url 
+    } = props.stateProps
 
-    function handleError() {
-        sendEmail(userData.email, errorMessage.recipe.err)
+    async function handleError() {
+        await sendErrorEmail(userData.email, errorMessage.recipe.message, baseURL, url)
+        setSuccessMeesage(prevSuccess => ({
+            ...prevSuccess,
+            sidebar: "Error report sent!"
+        }))
         setErrorMessage({
             recipe: {message: "", err: ""},
             login: {message: "", err: ""},

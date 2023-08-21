@@ -178,7 +178,7 @@ export default function CreateRecipe(props) {
                     <input 
                     type="text" 
                     name="author" 
-                    placeholder={userData.username ? userData.username : "Author"} 
+                    placeholder={userData? userData.username : "Author"} 
                     onChange={handleChange}
                     value={recipeData.author}
                     >

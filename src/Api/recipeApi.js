@@ -2,7 +2,7 @@ import axios from 'axios';
 import { parse } from 'tinyduration';
 import { nanoid } from 'nanoid';
 
-import defaultImg from "../Assets/ff-default-recipe.png";
+import defaultImg from "../Assets/no-image.jpg";
 import food from "../Assets/ff-default-recipe.png";
 
 import { getUserRecipes } from './userApi';
@@ -74,8 +74,8 @@ export async function handleDeleteRecipe(id, stateProps) {
       if (!data) {
         setErrorMessage((prevError) => ({
           ...prevError,
-          recipe: { message: 'No data found for the given URL', err: '' },
-          sidebar: { message: 'No data found for the given URL', err: '' },
+          recipe: { message: `No data found for ${url}`, err: '' },
+          sidebar: { message: `No data found for ${url}`, err: '' },
         }));
         return;
       }
@@ -128,6 +128,7 @@ export async function handleDeleteRecipe(id, stateProps) {
      setIsExtracting(false)
   
     } catch (error) {
+      console.log(error)
       setIsExtracting(false)
       setErrorMessage((prevError) => ({
           ...prevError,
@@ -176,7 +177,7 @@ export async function handleSaveRecipe(stateProps) {
             ingredients,
             instructions,
             author,
-            image: image ? image : food,
+            image: image ? image : defaultImg,
             isFavorite,
             recipeYield,
             times,

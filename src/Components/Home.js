@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Popup from 'reactjs-popup';
 
 import Pagify from "./Pagify";
-import Footer from "./Footer";
 import HomeHead from "./HomeHead";
 import { Settings } from "./Settings";
 import { useTimedMessage } from "../Utilities/useTimedMessage";
@@ -15,7 +14,7 @@ import avatar from "../Assets/Avatars/AVT-13.png"
 
 export default function Home(props) {
     
-    const { 
+    const {   
       handleLogout,
       savedRecipes,
       setRecipeData,
@@ -141,18 +140,10 @@ export default function Home(props) {
         closePopup()
     }
 
-    function handleSearch(e) {
-      setPrompt(e.target.value)
-    }
-
     function handleFavorite(index) {
       const currentRecipe = recipesToDisplay[index]
       currentRecipe.isFavorite = !currentRecipe.isFavorite
       handleUpdateRecipe(props.stateProps, currentRecipe);
-    }
-
-    function handleClearSearch() {
-      setPrompt("")
     }
 
     useTimedMessage(props.stateProps, "home");
@@ -160,7 +151,13 @@ export default function Home(props) {
     if(recipesToDisplay.length === 0 && !showSettings && !prompt) {
       return (
         <div className="empty">
-          <HomeHead stateProps={props.stateProps} selectedAvatar={selectedAvatar} handleLogout={handleLogout}/>
+          <HomeHead 
+          stateProps={props.stateProps} 
+          handleLogout={handleLogout}
+          imgSrc={imgSrc}
+          prompt={prompt}
+          setPrompt={setPrompt}
+          />
           <br/>
           <h2>There seems to be nothing here...</h2>
           <br/>
@@ -244,12 +241,10 @@ export default function Home(props) {
         <div className="home-container">
           <HomeHead 
           stateProps={props.stateProps} 
-          selectedAvatar={selectedAvatar} 
           handleLogout={handleLogout}
           imgSrc={imgSrc}
-          handleSearch={handleSearch}
-          handleClearSearch={handleClearSearch}
           prompt={prompt}
+          setPrompt={setPrompt}
           />
          {showSettings ? 
           <Settings 

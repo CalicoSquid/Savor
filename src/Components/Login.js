@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useTimedMessage } from "../Utilities/useTimedMessage";
+import { sendWelcomeEmail } from "../Api/emailApi";
 
 export default function Login(props) {
 
@@ -14,6 +15,7 @@ export default function Login(props) {
         handleRegister, 
         errorMessage,
         setErrorMessage,
+        baseURL,
     } = props.stateProps
 
     const [showPassword, setShowPassword] = useState(false)
@@ -48,6 +50,8 @@ export default function Login(props) {
         if (formData.password === confirmPassword) {
             setIsRegistering(true)
             await handleRegister(props.stateProps)
+            
+            sendWelcomeEmail(formData.email, formData.username, baseURL)
             setIsRegistering(false)
         } else {
             setErrorMessage(prevError => ({
@@ -177,7 +181,7 @@ export default function Login(props) {
 
                 <button className="submit" type="submit">{isRegistering ? "Signing up..." : "Sign Up"}</button>
                 <small onClick={handleGoBack}> Already a member? 
-                    <span className="green go-back">Login</span>
+                    <span className="green go-back"> Login</span>
                 </small>
             </form>
         </div>}
