@@ -88,13 +88,16 @@ export default function Recipe(props){
     return (
     <div className="main-wrapper">
         {!recipeData.name && <p className="preview">Preview Recipe</p>}
-        {recipeData.name && <FullscreenButton fullscreenElement={fullscreenElement}/>}
         <div className="recipe-page" ref={fullscreenElement}>
         
             {loadingImage ? <h1>Loading Recipe...</h1> : 
             <div className="recipe-card" id="recipe-card">
+
+                <div className="recipe-buttons">
                 {isMobile && <button className="back" onClick={handleBack}>← Back</button>}
+                {recipeData.name && isMobile && <FullscreenButton fullscreenElement={fullscreenElement}/>}
                 {recipeData.name && <button className="download" onClick={handleSavePopup} >Download PDF</button>}
+                </div>
 
                 <Popup className="popup" position="right" open={open} onClose={handlePopupClose}>
                     <div className="save-pdf">

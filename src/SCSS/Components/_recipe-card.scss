@@ -24,26 +24,30 @@
     padding: 3rem;
     border-radius: 5px;
     text-align: left;
-    margin-top: 1rem;
     background: white;
     @include scroll;
+
+    .recipe-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .download {
+            @include gray-button;
+            margin-top: 0;
+            cursor: pointer;
+        }
+    
+        .back {
+            @include gray-button;
+            margin-top: 0;
+            cursor: pointer;
+        }
+
+    }
     
 
-    .download {
-        @include black-button;
-        position: absolute;
-        top: -10px;
-        right: 5px;
-        cursor: pointer;
-    }
-
-    .back {
-        @include green-button;
-        position: absolute;
-        top: -10px;
-        left: 5px;
-        cursor: pointer;
-    }
+    
  
     .recipe-card {
         padding: 3rem;

@@ -26,6 +26,7 @@ export default function Sidebar(props) {
         darkMode,
         setShowInstruct,
         setShowIngred,
+        isMobile,
     } = props.stateProps
 
     const [showTimes, setShowTimes] = useState(false)
@@ -100,7 +101,11 @@ export default function Sidebar(props) {
     }
 
     return (
-        <div className="sidebar" {...handlers}>
+        <div
+        className="sidebar"
+
+        {...handlers}
+        >
             <div className="title-bar">
               <img src={darkMode ? logoWhite : logo} className="logo-img" style={{height: "80px"}} alt="Measuring spoons logo"/>
               <div className="logo-text">
@@ -144,9 +149,16 @@ export default function Sidebar(props) {
             
             {showInstruct && <Instructions stateProps={stateProps} />}
             {showIngred && <Ingredients stateProps={stateProps} />}
+
+            <div className={` ${showCreate && isMobile ? 'slide-in-from-left-enter' : ''}`}>
             {(showCreate && !showInstruct && !showIngred) && <CreateRecipe stateProps={stateProps} />}
+            </div>
+
+            <div className={` ${!showCreate && isMobile ? 'slide-in-from-right-enter' : ''}`}>
             {!showCreate && <MyRecipes stateProps={stateProps} />}
-                            
+            </div>
+           
+           
         </div>
     )
 }

@@ -13,7 +13,72 @@
         justify-content: space-between;
         border-right: 3px solid lightgray;
         width: 30%;
+        transition: transform 0.3s ease-in-out;
         @include scroll;
+
+        /* Slide in from left */
+.slide-in-from-left-enter {
+    transform: translateX(-100%);
+    animation: slide-in-left 0.3s ease-in-out forwards;
+  }
+  
+  /* Slide out to right */
+  .slide-out-to-right-exit {
+    animation: slide-out-right 0.3s ease-in-out forwards;
+  }
+  
+  /* Slide in from right */
+  .slide-in-from-right-enter {
+    transform: translateX(100%);
+    animation: slide-in-right 0.3s ease-in-out forwards;
+  }
+  
+  /* Slide out to left */
+  .slide-out-to-left-exit {
+    animation: slide-out-left 0.3s ease-in-out forwards;
+  }
+  
+  /* Other CSS animations... */
+  
+  /* Slide in from left animation */
+  @keyframes slide-in-left {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  /* Slide out to right animation */
+  @keyframes slide-out-right {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  /* Slide in from right animation */
+  @keyframes slide-in-right {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  /* Slide out to left animation */
+  @keyframes slide-out-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
 
         .title-bar {
             position: fixed;

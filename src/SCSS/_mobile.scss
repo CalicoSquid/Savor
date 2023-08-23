@@ -100,14 +100,21 @@
         margin-left: 0;
     }
 
+    .main-wrapper {
+        padding: 0!important;
+    }
+    .recipe-page {
+        padding: 0 !important;
+        border: 1px solid red;
+    }
     .recipe-card {
-        padding: 1rem !important;
+        padding: 0.9rem !important;
         border: none !important;
         box-shadow: none !important;
 
          .recipe-data {
             width: 100%;
-            padding-top: 2rem;
+            //padding-top: 2rem;
 
             .recipe-info {
                 justify-content: center;
