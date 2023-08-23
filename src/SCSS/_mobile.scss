@@ -125,8 +125,14 @@
         }
     }
 
+    .sidebar-home-x {
+        padding-inline: 0.3rem;
+    
+    }
+
     .recipe-image-grid {
- 
+        gap: 0.5rem !important;
+        
         .desktop-text {
             font-size: 0.8rem;
             //font-weight: 600;
@@ -137,12 +143,16 @@
             overflow-y: hidden;
             padding: 0.1rem !important;
         }
+
+        .favorite {
+            height: 10% !important;
+            width: 10% !important;
+        }
     }
 
     .home-head-container {
         width: 100% !important;
         
-        top: 143px;
         
         .home-head-search {
             margin-right: 5px;

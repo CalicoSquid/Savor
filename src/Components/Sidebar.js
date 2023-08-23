@@ -150,12 +150,12 @@ export default function Sidebar(props) {
             {showInstruct && <Instructions stateProps={stateProps} />}
             {showIngred && <Ingredients stateProps={stateProps} />}
 
-            <div className={` ${showCreate && isMobile ? 'slide-in-from-left-enter' : ''}`}>
-            {(showCreate && !showInstruct && !showIngred) && <CreateRecipe stateProps={stateProps} />}
+            <div className={`create-component ${showCreate ? 'slide-in-r' : 'slide-out-r'}`}>
+            {(!showInstruct && !showIngred) && <CreateRecipe stateProps={stateProps} />}
             </div>
 
-            <div className={` ${!showCreate && isMobile ? 'slide-in-from-right-enter' : ''}`}>
-            {!showCreate && <MyRecipes stateProps={stateProps} />}
+            <div className={`my-recipes-component ${showCreate ? 'slide-out' : 'slide-in'}`}>
+            {<MyRecipes stateProps={stateProps} />}
             </div>
            
            

@@ -33,7 +33,11 @@ export default function RecoverPassword({setShowRecover, stateProps}) {
             value={recoveryEmail}
             onChange={(e) => setRecoveryEmail(e.target.value)}
             />
-            <button type="submit" className="send-recovery">Send</button>
+            <div className="recover-buttons">
+                <button type="submit" className="save">Send</button>
+                <button type="button" className="cancel" onClick={() => setShowRecover(false)}>Go Back</button>
+            </div>
+            
             </form>
             
         </div>

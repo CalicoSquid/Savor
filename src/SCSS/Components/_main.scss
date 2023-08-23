@@ -16,69 +16,30 @@
         transition: transform 0.3s ease-in-out;
         @include scroll;
 
-        /* Slide in from left */
-.slide-in-from-left-enter {
-    transform: translateX(-100%);
-    animation: slide-in-left 0.3s ease-in-out forwards;
-  }
-  
-  /* Slide out to right */
-  .slide-out-to-right-exit {
-    animation: slide-out-right 0.3s ease-in-out forwards;
-  }
-  
-  /* Slide in from right */
-  .slide-in-from-right-enter {
-    transform: translateX(100%);
-    animation: slide-in-right 0.3s ease-in-out forwards;
-  }
-  
-  /* Slide out to left */
-  .slide-out-to-left-exit {
-    animation: slide-out-left 0.3s ease-in-out forwards;
-  }
-  
-  /* Other CSS animations... */
-  
-  /* Slide in from left animation */
-  @keyframes slide-in-left {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-  
-  /* Slide out to right animation */
-  @keyframes slide-out-right {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-  
-  /* Slide in from right animation */
-  @keyframes slide-in-right {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-  
-  /* Slide out to left animation */
-  @keyframes slide-out-left {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
+        .create-component,
+        .my-recipes-component {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          transition: left 0.5s ease-in-out; /* Use the appropriate transition properties */
+        }
+
+        .slide-in {
+          left: 0;
+        }
+
+        .slide-out {
+          left: 100%; /* Adjust this value based on the width of the component */
+        }
+
+        .slide-in-r {
+          left: 0;
+        }
+
+        .slide-out-r {
+          left: -100%;
+        }
 
         .title-bar {
             position: fixed;
@@ -92,7 +53,6 @@
             gap: 1rem;
             justify-content: center;
             align-items: center;
-            //border: 1px solid red;
 
             .logo-text {
 
@@ -252,9 +212,8 @@
 }
 
 .sidebar-home-x {
-    padding-inline: 2rem;
-    height: 100vh;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    padding-inline: 0.6rem;
+
 }

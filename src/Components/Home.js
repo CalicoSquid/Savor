@@ -34,7 +34,8 @@ export default function Home(props) {
       setPreviousPage,
       showSettings,
       userData,
-      setDarkMode
+      setDarkMode,
+      showCreate,
     } = props.stateProps;
 
     const [hoveredIndex, setHoveredIndex] = useState(-1);
@@ -45,11 +46,12 @@ export default function Home(props) {
     const [selectedAvatar, setSelectedAvatar] = useState(avatar);
     const [imgSrc, setImgSrc] = useState("")
     const [displayName, setDisplayName] = useState(userData.username)
+    const [rpp, setRpp] = useState(6)
 
-    const recipesPerPage = 6;
-    const totalPages = Math.ceil(filteredRecipes.length / recipesPerPage);
-    const startIndex = (currentPage - 1) * recipesPerPage;
-    const endIndex = startIndex + recipesPerPage;
+    //const recipesPerPage = 6;
+    const totalPages = Math.ceil(filteredRecipes.length / rpp);
+    const startIndex = (currentPage - 1) * rpp;
+    const endIndex = startIndex + rpp;
     const recipesToDisplay = filteredRecipes.slice(startIndex, endIndex);
 
     useEffect(() => {
@@ -232,20 +234,20 @@ export default function Home(props) {
         totalPages,
         setCurrentPage,
         setPreviousPage,
-        recipesPerPage
+        rpp
       }
 
 
       return (
 
         <div className="home-container">
-          <HomeHead 
+          {!showCreate && <HomeHead 
           stateProps={props.stateProps} 
           handleLogout={handleLogout}
           imgSrc={imgSrc}
           prompt={prompt}
           setPrompt={setPrompt}
-          />
+          />}
          {showSettings ? 
           <Settings 
           stateProps={props.stateProps} 
@@ -256,8 +258,7 @@ export default function Home(props) {
           displayName={displayName}
           setDisplayName={setDisplayName}
           /> : 
-            <div>
-              <br/>
+            <div className="home-scroll">
               {errorMessage.home.message && <><br/><p className="error">{errorMessage.home.message}</p></>}
               {successMessage.home && <><br/><p className="green">{successMessage.home}</p></>}
               <br/>
