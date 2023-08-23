@@ -25,7 +25,7 @@ export async function sendErrorEmail(userEmail, error, baseURL, url) {
 /////
 
 export async function sendRecoverEmail(userEmail, stateProps) {
-  const {baseURL,setErrorMessage, setSuccessMessage} = stateProps;
+  const {baseURL, setErrorMessage, setSuccessMessage} = stateProps;
   const emailSubject = 'Savor Password Recovery';
   const fromEmail = 'calicosquidcode@gmail.com';
   const emailContent = `Click the link to recover your password: ${baseURL}/reset-password?email=${userEmail}`;
@@ -42,7 +42,7 @@ export async function sendRecoverEmail(userEmail, stateProps) {
     console.log('Recovery email sent successfully');
     setSuccessMessage(prev => ({
       ...prev,
-      login: "Email sent. Check your inbox and follow the link."
+      login: "Email sent. Check your inbox."
   }))
   } catch (error) {
     console.error('Error sending recovery email:', error);

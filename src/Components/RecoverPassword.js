@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { sendRecoverEmail } from "../Api/emailApi"
+import { useTimedMessage } from "../Utilities/useTimedMessage";
 
-export default function RecoverPassword({setShowRecover, stateProps}) {
+export default function RecoverPassword({setShowRecover, showRecover, stateProps}) {
 
     const {setSuccessMessage, errorMessage } = stateProps;
 
@@ -23,7 +24,7 @@ export default function RecoverPassword({setShowRecover, stateProps}) {
         <div className="login-container recover">
             <h1>Reset Password</h1>
             <br/>
-            {errorMessage.login.message && <p className="error">{errorMessage.login.message}</p>}
+            {(errorMessage.login.message && showRecover) && <p className="error">{errorMessage.login.message}</p>}
             <p>Follow instruction in your email to reset your password:</p>
             <br/>
             <form onSubmit={handleSendRecovery}>

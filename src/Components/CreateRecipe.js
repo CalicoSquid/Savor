@@ -87,9 +87,6 @@ export default function CreateRecipe(props) {
       setShowIngred(true)
     }
 
-    useTimedMessage(props.stateProps, "sidebar");
-
-
     return (
         <div className="sidebar-info">
                 <div className="recipe-form">
@@ -256,7 +253,7 @@ export default function CreateRecipe(props) {
                     }
                     })}>Clear Recipe</button>
             </div>
-            
+            <br/>
             </div>
         </div>    
     )

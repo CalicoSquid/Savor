@@ -5,15 +5,22 @@ export default function Error(props) {
     const { 
         errorMessage, 
         setErrorMessage, 
-        setSuccessMeesage, 
+        setSuccessMessage, 
         userData, 
         baseURL, 
         url 
     } = props.stateProps
 
     async function handleError() {
+        setErrorMessage({
+            recipe: {message: "", err: ""},
+            login: {message: "", err: ""},
+            register: {message: "", err: ""},
+            home: {message: "", err: ""},
+            sidebar: {message: "", err: ""},
+        })
         await sendErrorEmail(userData.email, errorMessage.recipe.message, baseURL, url)
-        setSuccessMeesage(prevSuccess => ({
+        setSuccessMessage(prevSuccess => ({
             ...prevSuccess,
             sidebar: "Error report sent!"
         }))

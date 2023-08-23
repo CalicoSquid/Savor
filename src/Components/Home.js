@@ -148,8 +148,6 @@ export default function Home(props) {
       handleUpdateRecipe(props.stateProps, currentRecipe);
     }
 
-    useTimedMessage(props.stateProps, "home");
-
     if(recipesToDisplay.length === 0 && !showSettings && !prompt) {
       return (
         <div className="empty">

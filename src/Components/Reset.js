@@ -3,7 +3,7 @@ import { changePassword } from '../Api/authApi';
 import checkPasswordStrength from '../Utilities/checkPassword';
 import { useTimedMessage } from '../Utilities/useTimedMessage';
 
-export default function RecoverPassword({ setShowReset, setShowRecover, passwordStrength, setPasswordStrength, stateProps }) {
+export default function RecoverPassword({ setShowReset, setShowRecover, showReset, passwordStrength, setPasswordStrength, stateProps }) {
 
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -37,13 +37,13 @@ export default function RecoverPassword({ setShowReset, setShowRecover, password
 
   }
 
-  useTimedMessage(stateProps, "login");
+  //useTimedMessage(stateProps, "login");
 
   return (
     <div className="login-container reset">
       <h1>Reset Password</h1>
       <br/>
-      {errorMessage.login.message && <p className="error">{errorMessage.login.message}</p>}
+      {(errorMessage.login.message && showReset) && <p className="error">{errorMessage.login.message}</p>}
         <div className="password-wrapper">
         <input
         minLength={8} 

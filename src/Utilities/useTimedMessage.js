@@ -1,27 +1,31 @@
 import { useEffect } from 'react';
 
-export function useTimedMessage(stateProps, prop) {
+export function useTimedMessage(stateProps) {
 
   const { errorMessage, setErrorMessage, successMessage, setSuccessMessage } = stateProps
   useEffect(() => {
     let errorTimer;
     let successTimer;
 
-    if (errorMessage) {
+    if (errorMessage && !errorMessage.recipe.message) {
       errorTimer = setTimeout(() => {
-        setErrorMessage(prevError => ({
-          ...prevError,
-          [prop]: { message: '', err: '' }
-        }));
+        setErrorMessage({
+          recipe: {message: "", err: ""},
+          login: {message: "", err: ""},
+          register: {message: "", err: ""},
+          home: {message: "", err: ""},
+          sidebar: {message: "", err: ""},
+      });
       }, 5000); // Hide the error message after 5 seconds
     }
 
     if (successMessage) {
       successTimer = setTimeout(() => {
-        setSuccessMessage(prevSuccess => ({
-          ...prevSuccess,
-          [prop]: ""
-        }));
+        setSuccessMessage({
+          home: "",
+          login: "",
+          sidebar: "",
+        });
       }, 5000); // Hide the success message after 5 seconds
     }
 
@@ -29,5 +33,5 @@ export function useTimedMessage(stateProps, prop) {
       clearTimeout(errorTimer);
       clearTimeout(successTimer);
     };
-  }, [errorMessage, setErrorMessage, successMessage, setSuccessMessage, prop]);
+  }, [errorMessage, setErrorMessage, successMessage, setSuccessMessage]);
 }

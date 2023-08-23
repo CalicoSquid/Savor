@@ -7,6 +7,7 @@ import './SCSS/index.scss';
 import Main from './Components/Main';
 import checkPasswordStrength from "./Utilities/checkPassword";
 import isAuthenticated from "./Utilities/auth";
+import { useTimedMessage } from "./Utilities/useTimedMessage";
 
 import { handleDeleteRecipe, handleUpdateRecipe } from "./Api/recipeApi";
 import { getUserData, getUserRecipes } from "./Api/userApi";
@@ -82,10 +83,10 @@ function App() {
   /////
 
   useEffect(() => {
-    // Extract the token from the URL and set it in state
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
     if (token) {
+      console.log(token)
       setResetToken(token);
       setShowReset(true)
     }
@@ -97,7 +98,7 @@ function App() {
     if(!isSaved) {
       const handleBeforeUnload = (event) => {
         event.preventDefault();
-        event.returnValue = ''; // This is necessary to display the alert message in some browsers
+        event.returnValue = '';
       };
   
       window.addEventListener('beforeunload', handleBeforeUnload);
@@ -108,6 +109,8 @@ function App() {
     }
   // eslint-disable-next-line 
   }, []);
+
+  /////
 
   useEffect(() => {
     if (!isSaved) {
@@ -121,6 +124,7 @@ function App() {
   // eslint-disable-next-line
   }, [isSaved]);
 
+  /////
 
   useEffect(() => {
     devMode ? setBaseURL("http://192.168.1.109:8080/api") : setBaseURL("https://savor-recipes-server.onrender.com/api")
@@ -151,6 +155,8 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
+  /////
+
   useEffect(() => {
 
     if (userData) {
@@ -167,7 +173,8 @@ function App() {
     }
     // eslint-disable-next-line
   }, [userData]);
-  
+
+  /////
 
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
@@ -180,7 +187,6 @@ function App() {
       setPasswordStrength("Medium") :
       setPasswordStrength("Strong");
     }
-    //console.log(formData)
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -273,6 +279,8 @@ function App() {
     setShowReset,
 
     }
+
+    useTimedMessage(stateProps)
 
   return (
     <div className={`App ${darkMode ? "dark" : ""}`}>

@@ -18,7 +18,6 @@ export default function Login(props) {
         handleRegister, 
         errorMessage,
         setErrorMessage,
-        setSuccessMessage,
         successMessage,
         baseURL,
         showReset,
@@ -73,13 +72,11 @@ export default function Login(props) {
         
     }
 
-    useTimedMessage(props.stateProps, "register");
-    useTimedMessage(props.stateProps, "login");
-
     if(showReset) {
         return (
             <ResetPassword 
             setShowReset={setShowReset} 
+            showReset={showReset}
             passwordStrength={passwordStrength}
             setPasswordStrength={setPasswordStrength}
             setShowRecover={setShowRecover}
@@ -92,6 +89,7 @@ export default function Login(props) {
         return (
             <RecoverPassword 
             setShowRecover={setShowRecover} 
+            showRecover={showRecover}
             stateProps={props.stateProps}
             />
         )
