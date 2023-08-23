@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useTimedMessage } from "../Utilities/useTimedMessage";
 import { sendWelcomeEmail } from "../Api/emailApi";
 import RecoverPassword from "./RecoverPassword";
 import ResetPassword from "./Reset"

@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 
-import food from "../Assets/ff-default-recipe.png"
+import food from "../Assets/no-image.jpg"
 
 export default function Ingredients(props) {
 
@@ -91,6 +91,8 @@ export default function Ingredients(props) {
                 <button className="cancel" onClick={handleCancelChanges}>
                     Cancel
                 </button>
+                <br/>
+                <br/>
             </div>     
     )
 }

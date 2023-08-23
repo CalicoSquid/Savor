@@ -128,8 +128,8 @@ export default function Recipe(props){
                     
                     <div className="recipe-info">
                         <div className="author">
-                            <b>{recipeData.author}</b>
-                            {recipeData.recipeYield && !isMobile && <p>Serves: {recipeData.recipeYield}</p>}
+                            {recipeData.author &&<b> {recipeData.author}</b>}
+                            {recipeData.recipeYield && <p>Serves: {recipeData.recipeYield}</p>}
                         </div>
 
                         <div className="times">

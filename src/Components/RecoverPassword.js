@@ -1,23 +1,21 @@
 import { useState } from "react"
-import { sendRecoverEmail } from "../Api/emailApi"
-import { useTimedMessage } from "../Utilities/useTimedMessage";
+import { sendRecoverEmail } from "../Api/emailApi";
 
 export default function RecoverPassword({setShowRecover, showRecover, stateProps}) {
 
-    const {setSuccessMessage, errorMessage } = stateProps;
+    const { errorMessage } = stateProps;
 
     const [recoveryEmail, setRecoveryEmail] = useState("")
+    const [isSending, setIsSending] = useState(false)
 
-    function handleSendRecovery(e) {
+    async function handleSendRecovery(e) {
         e.preventDefault()
-        console.log(recoveryEmail.toLowerCase())
-        sendRecoverEmail(recoveryEmail.toLowerCase(), stateProps).then(() => {
-            setSuccessMessage(prev => ({
-                ...prev,
-                login: "Email sent. Check your inbox and follow the link."
-            }))
+        setIsSending(true)
+        await sendRecoverEmail(recoveryEmail.toLowerCase(), stateProps)
+        .then(() => {
+            setShowRecover(false)
+            setIsSending(false)
         })
-        setShowRecover(false)
     }
 
     return (
@@ -35,12 +33,10 @@ export default function RecoverPassword({setShowRecover, showRecover, stateProps
             onChange={(e) => setRecoveryEmail(e.target.value)}
             />
             <div className="recover-buttons">
-                <button type="submit" className="save">Send</button>
+                <button type="submit" className="save">{!isSending ? "Send" : "Sending..."}</button>
                 <button type="button" className="cancel" onClick={() => setShowRecover(false)}>Go Back</button>
             </div>
-            
-            </form>
-            
+            </form>  
         </div>
     )
 }

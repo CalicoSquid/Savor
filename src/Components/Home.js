@@ -5,7 +5,6 @@ import Popup from 'reactjs-popup';
 import Pagify from "./Pagify";
 import HomeHead from "./HomeHead";
 import { Settings } from "./Settings";
-import { useTimedMessage } from "../Utilities/useTimedMessage";
 
 import star from "../Assets/star.png"
 import starFilled from "../Assets/star-filled.png"

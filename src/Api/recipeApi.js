@@ -3,7 +3,6 @@ import { parse } from 'tinyduration';
 import { nanoid } from 'nanoid';
 
 import defaultImg from "../Assets/no-image.jpg";
-import food from "../Assets/ff-default-recipe.png";
 
 import { getUserRecipes } from './userApi';
 

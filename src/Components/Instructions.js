@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 
-import food from "../Assets/ff-default-recipe.png"
+import food from "../Assets/no-image.jpg"
 
 export default function Instructions(props) {
 

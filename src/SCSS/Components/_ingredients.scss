@@ -8,7 +8,9 @@
     left:0;
     top: 150px;
     @include scroll;
-    padding: 3rem;
+    background-color: white;
+    height: 85%;
+    z-index: 9999;
 
     .ingred-head {
         display: flex;

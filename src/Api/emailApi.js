@@ -11,7 +11,7 @@ export async function sendErrorEmail(userEmail, error, baseURL, url) {
     subject: emailSubject,
     from: fromEmail,
     to: toEmail,
-    html: emailContent, // Use the 'html' field for plain text content in this case
+    html: emailContent,
   };
 
   try {
@@ -55,6 +55,7 @@ export async function sendRecoverEmail(userEmail, stateProps) {
     }))
   }
 }
+
 //////
 
 export async function sendWelcomeEmail(userEmail, userName, baseURL) {

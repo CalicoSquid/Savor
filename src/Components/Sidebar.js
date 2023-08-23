@@ -26,7 +26,6 @@ export default function Sidebar(props) {
         darkMode,
         setShowInstruct,
         setShowIngred,
-        isMobile,
     } = props.stateProps
 
     const [showTimes, setShowTimes] = useState(false)
@@ -151,11 +150,11 @@ export default function Sidebar(props) {
             {showIngred && <Ingredients stateProps={stateProps} />}
 
             <div className={`create-component ${showCreate ? 'slide-in-r' : 'slide-out-r'}`}>
-            {(!showInstruct && !showIngred) && <CreateRecipe stateProps={stateProps} />}
+            <CreateRecipe stateProps={stateProps} />
             </div>
 
             <div className={`my-recipes-component ${showCreate ? 'slide-out' : 'slide-in'}`}>
-            {<MyRecipes stateProps={stateProps} />}
+            <MyRecipes stateProps={stateProps} />
             </div>
            
            
