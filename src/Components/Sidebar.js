@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useSwipeable } from 'react-swipeable';
 
 import Popup from 'reactjs-popup';
 import Nav from "./Nav";
@@ -14,7 +15,18 @@ import Ingredients from "./Ingredients";
 
 export default function Sidebar(props) {
 
-    const { setRecipeData, images, handleChange, devMode, setDevMode, showInstruct, showIngred, darkMode } = props.stateProps
+    const { 
+        setRecipeData, 
+        images, 
+        handleChange, 
+        devMode, 
+        setDevMode, 
+        showInstruct, 
+        showIngred, 
+        darkMode,
+        setShowInstruct,
+        setShowIngred,
+    } = props.stateProps
 
     const [showTimes, setShowTimes] = useState(false)
     const [showCreate, setShowCreate] = useState(false)
@@ -64,6 +76,17 @@ export default function Sidebar(props) {
         setDevPW(e.target.value)
     }
 
+    function handleLeftSwipe() {
+        setShowCreate(false)
+        setShowInstruct(false)
+        setShowIngred(false)
+    }
+
+    const handlers = useSwipeable({
+        onSwipedLeft: handleLeftSwipe, // Swipe left to hide CreateRecipe
+        onSwipedRight: () => setShowCreate(true), // Swipe right to show CreateRecipe
+      });
+
 
     const stateProps = {
       ...props.stateProps,
@@ -77,7 +100,7 @@ export default function Sidebar(props) {
     }
 
     return (
-        <div className="sidebar">
+        <div className="sidebar" {...handlers}>
             <div className="title-bar">
               <img src={darkMode ? logoWhite : logo} className="logo-img" style={{height: "80px"}} alt="Measuring spoons logo"/>
               <div className="logo-text">
@@ -116,9 +139,9 @@ export default function Sidebar(props) {
   )}
 
                 </Popup>
-                <Nav stateProps={stateProps}/>
-
+                <Nav stateProps={stateProps}/>               
             </div>
+            
             {showInstruct && <Instructions stateProps={stateProps} />}
             {showIngred && <Ingredients stateProps={stateProps} />}
             {(showCreate && !showInstruct && !showIngred) && <CreateRecipe stateProps={stateProps} />}

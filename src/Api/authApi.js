@@ -92,7 +92,6 @@ export async function handleSubmit( stateProps) {
         newPassword,
         token, // Include the token in the request body
       });
-      console.log(response)
       if (response.data.success) {
         setSuccessMessage(prevSuccess => ({
           ...prevSuccess,
