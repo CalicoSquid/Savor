@@ -16,7 +16,7 @@ export async function handleSubmit( stateProps) {
       setErrorMessage,
       setSuccessMessage,
       setSavedRecipes,
-      baseURL
+      baseURL,
     } = stateProps;
   
     try {
@@ -75,6 +75,39 @@ export async function handleSubmit( stateProps) {
           err: error.response?.data?.message,
         },
       }));
+    }
+  }
+
+
+  export async function changePassword(newPassword, token, stateProps) {
+
+    const {
+      setErrorMessage,
+      setSuccessMessage,
+      baseURL,
+    } = stateProps;
+    
+    try {
+      const response = await axios.post(`${baseURL}/reset-password`, {
+        newPassword,
+        token, // Include the token in the request body
+      });
+      console.log(response)
+      if (response.data.success) {
+        setSuccessMessage(prevSuccess => ({
+          ...prevSuccess,
+          login: response.data.message
+        }))
+      }
+    } catch (error) {
+      console.log(error)
+      setErrorMessage(prevError => ({
+        ...prevError,
+        login: {
+          message: "Failed to update password",
+          err: error?.message
+        }
+      }))
     }
   }
   

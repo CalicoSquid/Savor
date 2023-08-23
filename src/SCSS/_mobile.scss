@@ -92,6 +92,8 @@
 
     .home-container {
         width: 100%;
+        padding-inline: 0.4rem !important;
+        padding-bottom: 2rem;
     }
 
     .error-container {
@@ -132,6 +134,7 @@
 
     .home-head-container {
         width: 100% !important;
+        
         top: 143px;
         
         .home-head-search {

@@ -27,6 +27,8 @@ function App() {
   const [isExtracting, setIsExtracting] = useState(false);
   const [showInstruct, setShowInstruct] = useState(false)
   const [showIngred, setShowIngred] = useState(false)
+  const [showReset, setShowReset] = useState(false)
+  const [resetToken, setResetToken] = useState('');
   const [showSettings, setShowSettings] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
   const [baseURL, setBaseURL] = useState("https://savor-recipes-server.onrender.com/api")
@@ -76,6 +78,20 @@ function App() {
         total: "",
       }
   });
+
+  /////
+
+  useEffect(() => {
+    // Extract the token from the URL and set it in state
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    if (token) {
+      setResetToken(token);
+      setShowReset(true)
+    }
+  }, []);
+
+  /////
 
   useEffect(() => {
     if(!isSaved) {
@@ -223,8 +239,11 @@ function App() {
     showIngred,
     showSettings,
     darkMode,
+    resetToken,
+    showReset,
     setIsLoggedIn,
     setFormData,
+    setPasswordStrength,
     handleLoginChange,
     handleSubmit,
     handleRegister,
@@ -249,7 +268,9 @@ function App() {
     setShowInstruct,
     setShowIngred,
     setShowSettings,
-    setDarkMode
+    setDarkMode,
+    setResetToken,
+    setShowReset,
 
     }
 

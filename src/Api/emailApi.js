@@ -22,6 +22,41 @@ export async function sendErrorEmail(userEmail, error, baseURL, url) {
   }
 }
 
+/////
+
+export async function sendRecoverEmail(userEmail, stateProps) {
+  const {baseURL,setErrorMessage, setSuccessMessage} = stateProps;
+  const emailSubject = 'Savor Password Recovery';
+  const fromEmail = 'calicosquidcode@gmail.com';
+  const emailContent = `Click the link to recover your password: ${baseURL}/reset-password?email=${userEmail}`;
+
+  const emailData = {
+    subject: emailSubject,
+    from: fromEmail,
+    to: userEmail,
+    html: emailContent,
+  };
+
+  try {
+    await axios.post(`${baseURL}/recover-password`,{ emailData, userEmail});
+    console.log('Recovery email sent successfully');
+    setSuccessMessage(prev => ({
+      ...prev,
+      login: "Email sent. Check your inbox and follow the link."
+  }))
+  } catch (error) {
+    console.error('Error sending recovery email:', error);
+    setErrorMessage(prevError => ({
+      ...prevError,
+      login: {
+        message: "Failed to update password",
+        err: error?.message
+      }
+    }))
+  }
+}
+//////
+
 export async function sendWelcomeEmail(userEmail, userName, baseURL) {
     try {
       const response = await axios.post(`${baseURL}/send-welcome-email`, {

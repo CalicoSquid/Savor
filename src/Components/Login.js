@@ -1,11 +1,14 @@
 import { useState } from "react"
 import { useTimedMessage } from "../Utilities/useTimedMessage";
 import { sendWelcomeEmail } from "../Api/emailApi";
+import RecoverPassword from "./RecoverPassword";
+import ResetPassword from "./Reset"
 
 export default function Login(props) {
 
     const { 
         passwordStrength, 
+        setPasswordStrength,
         showLoginForm, 
         setShowLoginForm, 
         handleLoginChange, 
@@ -15,13 +18,18 @@ export default function Login(props) {
         handleRegister, 
         errorMessage,
         setErrorMessage,
+        setSuccessMessage,
+        successMessage,
         baseURL,
+        showReset,
+        setShowReset
     } = props.stateProps
 
     const [showPassword, setShowPassword] = useState(false)
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [isRegistering, setIsRegistering] = useState(false)
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [showRecover, setShowRecover] = useState(false)
 
     function handleShowReg() {
         setShowLoginForm(false)
@@ -68,6 +76,27 @@ export default function Login(props) {
     useTimedMessage(props.stateProps, "register");
     useTimedMessage(props.stateProps, "login");
 
+    if(showReset) {
+        return (
+            <ResetPassword 
+            setShowReset={setShowReset} 
+            passwordStrength={passwordStrength}
+            setPasswordStrength={setPasswordStrength}
+            setShowRecover={setShowRecover}
+            stateProps={props.stateProps}
+            />
+        )
+    }
+
+    if (showRecover) {
+        return (
+            <RecoverPassword 
+            setShowRecover={setShowRecover} 
+            stateProps={props.stateProps}
+            />
+        )
+    }
+
     return (
         <>
         { showLoginForm && <div className="login-container">
@@ -103,8 +132,10 @@ export default function Login(props) {
                 </label>
 
                 {errorMessage.login.message && <p className="error">{errorMessage.login.err}</p>}
+                {successMessage.login && <p className="green">{successMessage.login}</p>}
+
                 <button className="submit" type="submit">{isLoggingIn ? "Logging in..." : "Login"}</button>
-                <small className="forgot password">Forgot <span className="green">Password</span>?</small>
+                <small className="forgot password">Forgot <span className="green" onClick={() => setShowRecover(true)}>Password</span>?</small>
                 <small>Dont have an account? <span className="green" onClick={handleShowReg} >Sign up here.</span></small>
             </form>
         </div>}
