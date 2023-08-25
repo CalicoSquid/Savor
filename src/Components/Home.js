@@ -5,6 +5,7 @@ import Popup from 'reactjs-popup';
 import Pagify from "./Pagify";
 import HomeHead from "./HomeHead";
 import { Settings } from "./Settings";
+import Pay from "./Pay";
 
 import star from "../Assets/star.png"
 import starFilled from "../Assets/star-filled.png"
@@ -35,6 +36,7 @@ export default function Home(props) {
       userData,
       setDarkMode,
       showCreate,
+      showPayment
     } = props.stateProps;
 
     const [hoveredIndex, setHoveredIndex] = useState(-1);
@@ -44,7 +46,7 @@ export default function Home(props) {
     const [filteredRecipes, setFilteredRecipes] = useState([]);
     const [selectedAvatar, setSelectedAvatar] = useState(avatar);
     const [imgSrc, setImgSrc] = useState("")
-    const [displayName, setDisplayName] = useState(userData.username)
+    const [displayName, setDisplayName] = useState(userData?.username? userData?.username : "")
     const [rpp, setRpp] = useState(6)
 
     //const recipesPerPage = 6;
@@ -234,6 +236,10 @@ export default function Home(props) {
         rpp
       }
 
+      if (showPayment) {
+        return <Pay imgSrc={imgSrc} stateProps={props.stateProps}/>
+      }
+
 
       return (
 
@@ -254,6 +260,7 @@ export default function Home(props) {
           setImgSrc={setImgSrc}
           displayName={displayName}
           setDisplayName={setDisplayName}
+          recipesToDisplay={recipesToDisplay}
           /> : 
             <div className="home-scroll">
               {errorMessage.home.message && <><br/><p className="error">{errorMessage.home.message}</p></>}

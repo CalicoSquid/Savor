@@ -5,7 +5,7 @@ import logoutWhite from "../Assets/logout-white.png"
 
 export default function HomeHead({stateProps, prompt, setPrompt, handleLogout, imgSrc}) {
 
-    const {userData, setShowSettings, darkMode} = stateProps;
+    const {userData, setShowSettings, showSettings, darkMode} = stateProps;
 
     function handleSettings() {
         setShowSettings(s => !s)
@@ -14,11 +14,11 @@ export default function HomeHead({stateProps, prompt, setPrompt, handleLogout, i
     return (
         <div className="home-head-container">
             <div className="home-head-user">
-                <img src={imgSrc ? imgSrc : userData.profilePicture} alt="avatar"/>
+                <img src={imgSrc ? imgSrc : userData?.profilePicture} alt="avatar"/>
                 
             </div>
 
-            <div className="home-head-search">
+            {!showSettings ? <div className="home-head-search">
                     <input 
                     type="text" 
                     className="search" 
@@ -28,7 +28,9 @@ export default function HomeHead({stateProps, prompt, setPrompt, handleLogout, i
                     onChange={(e) => setPrompt(e.target.value)}
                     />
                     
-                </div>
+                </div> : 
+                <h2>Settings</h2>      
+                }
 
 
             

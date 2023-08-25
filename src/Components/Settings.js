@@ -1,12 +1,17 @@
 import { handleUpdateAvatar } from "../Api/userApi"
 import AvatarSelectionPage from "./Avatar"
-import gear from "../Assets/settings.png"
-import gearWhite from "../Assets/settings-white.png"
-
 
 export function Settings(props) {
 
-  const {setShowSettings, userData, darkMode, setDarkMode} = props.stateProps
+  const {
+    setShowSettings, 
+    userData, 
+    darkMode, 
+    setDarkMode, 
+    isProUser, 
+    setShowPayment,
+    savedRecipes,
+  } = props.stateProps
 
 
   function handleAvatarSelect(src) {
@@ -36,27 +41,40 @@ export function Settings(props) {
   const handleDarkModeToggle = () => {
     setDarkMode(!darkMode);
   };
+
+  const maxRecipes = isProUser ? "Unlimited" : "20";
+  const userRecipesAmount = savedRecipes.length
     
     return (
         <div className="settings">
-          <br/>
-            <div className="settings-top">
-              <img src={darkMode ? gearWhite : gear} alt="settings" style={{height: "30px"}}/>
-              <h2>Settings</h2>
-            </div>
+            <br/>
+            {!isProUser &&  
+            <>
+              <div className="go-pro-container">
+                <h1>Go Pro</h1>
+                <p>Get Savor pro and unlock unlimited recipes for only $5!</p>
+                <button onClick={() => setShowPayment(true)}>Upgrade to Savor Pro</button>
+              </div>
+              <br/>
+              <hr style={{border: "1px solid #4CAF50"}}/>
+            </>
+            }
+            
+            <br/>
+            <p>Your Recipes: <span className="recipe-count">{`${userRecipesAmount} / ${maxRecipes} `}</span></p>
             <br/>
             <hr style={{border: "1px solid #4CAF50"}}/>
             <br/>
-            <p>Change Display Name:</p>
-            <br/>
-            <input
-              id="change-name"
-              type="text"
-              value={props.displayName}
-              onChange={handleDisplayNameChange}
-              placeholder="Enter new display name"
-            />
-          
+            <p>Display Name: 
+              {" "}
+              <input
+                id="change-name"
+                type="text"
+                value={props.displayName}
+                onChange={handleDisplayNameChange}
+                placeholder="Enter new display name"
+              />
+          </p>
      
             <br/>
             <hr style={{border: "1px solid #4CAF50"}}/>

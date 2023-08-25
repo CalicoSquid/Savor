@@ -14,6 +14,7 @@
         border-right: 3px solid lightgray;
         width: 30%;
         transition: transform 0.3s ease-in-out;
+        //border: 5px solid red;
         @include scroll;
 
         .create-component,
@@ -60,15 +61,37 @@
                 .logo-title {
                     @include title;
                     font-size: 4.5rem;
+
+                    span {
+                        font-size: 2rem;
+                        //color: red;
+                    }
                 }
             }
+        }
+
+        .go-pro-create {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: $box-shadow-main;
+            position: fixed;
+            left: 0;
+            top: 137px;
+            height: 50px;
+            width: 30%;
+            background-color: #fff;
+            box-sizing: border-box;
+            z-index: 9999;
+            cursor: pointer;
         }
 
         
 
         .sidebar-info {
-            padding: 2rem 2rem 0 2rem;
-            margin-top: 150px;
+            margin-top: 170px;
+            padding: 3rem 2rem 0 2rem;
+            //height: 100%;
             //position: relative;
 
             .side-header {
@@ -177,9 +200,6 @@
 
             }
 
-            
-
-            
         }
 
         .save {
@@ -215,5 +235,6 @@
     display: flex;
     justify-content: center;
     padding-inline: 0.6rem;
+    padding-top: 1rem;
 
 }

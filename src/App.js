@@ -9,9 +9,13 @@ import checkPasswordStrength from "./Utilities/checkPassword";
 import isAuthenticated from "./Utilities/auth";
 import { useTimedMessage } from "./Utilities/useTimedMessage";
 
+
 import { handleDeleteRecipe, handleUpdateRecipe } from "./Api/recipeApi";
 import { getUserData, getUserRecipes } from "./Api/userApi";
 import { handleSubmit, handleRegister } from "./Api/authApi";
+import { handleGoPro } from "./Api/userApi";
+
+//localStorage.clear()
 
 function App() {
 
@@ -60,7 +64,8 @@ function App() {
     password: "",
     profilePicture: defaultAvatar,
     updatedAt: "",
-    username: ""
+    username: "",
+    subscribed: "",
   });
 
   const [recipeData, setRecipeData] = useState({
@@ -80,13 +85,53 @@ function App() {
       }
   });
 
+  const [isProUser, setIsProUser] = useState(userData?.subscribed ? userData.subscribed : false);
+  const [showPayment, setShowPayment] = useState(false);
+  const [message, setMessage] = useState(false);
+  const [paymentMessage, setPaymentMessage] = useState("")
+
+
+  //////
+
+  useEffect(() => {
+    console.log(userData?.subscribed)
+    if (userData?.subscribed === true) {
+      setIsProUser(true)
+    }
+  }, [userData])
+
+
+  //////
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const isSuccess = urlParams.get('success');
+    const isCanceled = urlParams.get('canceled');
+    const newUrl = window.location.origin;
+
+    if (isSuccess) {
+      window.history.replaceState({}, document.title, newUrl);
+      setShowPayment(true)
+      console.log("TRUE??")
+      setIsProUser(true)
+      setMessage('Payment Successful! You will receive an email confirmation.');
+      handleGoPro("http://192.168.1.109:8080/api", setUserData, setSuccessMessage, setErrorMessage)
+      
+      
+    } else if (isCanceled) {
+      setShowPayment(true)
+      setMessage('Order canceled -- continue to shop around and checkout when you\'re ready.');
+      setIsProUser(false)
+      window.history.replaceState({}, document.title, newUrl);
+    }
+  }, []);
+
   /////
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
     if (token) {
-      console.log(token)
       setResetToken(token);
       setShowReset(true)
     }
@@ -219,7 +264,16 @@ function App() {
         total: "",
       }
     });
-    setUserData(null);
+    setUserData({
+      createdAt: "",
+      email: "",
+      password: "",
+      profilePicture: defaultAvatar,
+      updatedAt: "",
+      username: "",
+      subscribed: "",
+    });
+    setIsProUser(false)
   };
 
 
@@ -247,6 +301,10 @@ function App() {
     darkMode,
     resetToken,
     showReset,
+    isProUser,
+    showPayment,
+    message,
+    paymentMessage,
     setIsLoggedIn,
     setFormData,
     setPasswordStrength,
@@ -277,7 +335,10 @@ function App() {
     setDarkMode,
     setResetToken,
     setShowReset,
-
+    setIsProUser,
+    setShowPayment,
+    setMessage,
+    setPaymentMessage,
     }
 
     useTimedMessage(stateProps)

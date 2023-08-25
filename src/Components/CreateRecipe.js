@@ -31,10 +31,12 @@ export default function CreateRecipe(props) {
         setPreviousPage,
         setShowInstruct,
         setShowIngred,
+        isProUser,
+        setShowPayment,
+        setPaymentMessage,
     } = props.stateProps
 
     const [isGenerating, setIsGenerating] = useState(false);
-    
 
     async function handleGetImages() {     
         await searchImages(recipeData.name, handleChange, setImages, setIsGenerating, 3)
@@ -47,6 +49,8 @@ export default function CreateRecipe(props) {
 
     async function handleSaveOrUpdateRecipe(recipe) {
 
+        const recipeLimit = !isProUser ? 12 : 9999999999999;
+
         if(isLoggedIn) {
             const existingRecipe = savedRecipes.find(savedRecipe => savedRecipe.recipeId === recipe.recipeId);
 
@@ -55,7 +59,13 @@ export default function CreateRecipe(props) {
             setIsSaved(true)
             setPreviousPage(1)
         } else {
-            await handleSaveRecipe(props.stateProps);
+            if (savedRecipes.length <= recipeLimit) {
+                await handleSaveRecipe(props.stateProps);
+            } else {
+                setShowCreate(false)
+                setShowPayment(true)
+                setPaymentMessage("You have reached the limit of recipes that you can save! \n Upgrade to Pro for only $5 for unlimited recipes!")
+            }
 
             setIsSaved(true)
         }
@@ -87,6 +97,7 @@ export default function CreateRecipe(props) {
 
     return (
         <div className="sidebar-info">
+            
                 <div className="recipe-form">
                     <p className="side-header">Import Recipe:</p>
                     <div className="url-input-container">

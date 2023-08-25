@@ -7,6 +7,10 @@
     padding: 1rem;
     @include scroll;
 
+    .setting-title {
+      @include title;
+    }
+
     hr {
         width: 100%;
     }
@@ -15,8 +19,21 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-       margin-top: 1rem;
-        text-align: left;
+      margin-top: 1rem;
+      text-align: left;
+    }
+
+    .go-pro-container {
+      border: 1px solid $green-theme;
+      border-radius: 5px;
+      box-shadow: $box-shadow-main;
+      padding: 1rem;
+      width: 90%;
+      margin: auto;
+
+      button {
+        @include green-button;
+      }
     }
 
     .settings-buttons {
@@ -35,7 +52,7 @@
         }
     }
 
-    input {
+    input, .recipe-count {
         border: none;
         font-weight: bold;
 

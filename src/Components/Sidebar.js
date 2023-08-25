@@ -13,6 +13,8 @@ import dev from "../Assets/dev.png";
 import Instructions from "./Instructions";
 import Ingredients from "./Ingredients";
 
+import HomeHead from "./HomeHead";
+
 export default function Sidebar(props) {
 
     const { 
@@ -26,6 +28,9 @@ export default function Sidebar(props) {
         darkMode,
         setShowInstruct,
         setShowIngred,
+        isProUser,
+        setShowPayment,
+        isLoggedIn,
     } = props.stateProps
 
     const [showTimes, setShowTimes] = useState(false)
@@ -82,10 +87,17 @@ export default function Sidebar(props) {
         setShowIngred(false)
     }
 
+    function handlePay() {
+        setShowPayment(true);
+        setShowCreate(false);
+    }
+
     const handlers = useSwipeable({
         onSwipedLeft: handleLeftSwipe, // Swipe left to hide CreateRecipe
         onSwipedRight: () => setShowCreate(true), // Swipe right to show CreateRecipe
       });
+
+
 
 
     const stateProps = {
@@ -108,7 +120,7 @@ export default function Sidebar(props) {
             <div className="title-bar">
               <img src={darkMode ? logoWhite : logo} className="logo-img" style={{height: "80px"}} alt="Measuring spoons logo"/>
               <div className="logo-text">
-                  <h1 className="logo-title">Savor</h1>
+                  <h1 className="logo-title">Savor{isProUser && <span>pro</span>}</h1>
                 </div>
 
                 <Popup 
@@ -143,16 +155,27 @@ export default function Sidebar(props) {
   )}
 
                 </Popup>
-                <Nav stateProps={stateProps}/>               
+                <Nav stateProps={stateProps}/>       
+                
             </div>
             
             {showInstruct && <Instructions stateProps={stateProps} />}
             {showIngred && <Ingredients stateProps={stateProps} />}
 
             <div className={`create-component ${showCreate ? 'slide-in-r' : 'slide-out-r'}`}>
+            
+            { isLoggedIn && 
+            <div 
+            className={`go-pro-create`} 
+            style={isProUser ? {cursor: "default"} : {}}
+            onClick={!isProUser ? handlePay : null}
+            >
+            {(!isProUser && showCreate) && <h2>Upgrade to Savor Pro!</h2>}
+            </div>
+            }
             <CreateRecipe stateProps={stateProps} />
             </div>
-
+            
             <div className={`my-recipes-component ${showCreate ? 'slide-out' : 'slide-in'}`}>
             <MyRecipes stateProps={stateProps} />
             </div>

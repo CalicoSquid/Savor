@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import defaultAvatar from '../Assets/Avatars/AVT-13.png';
+import defaultAvatar from '../Assets/Avatars/AVT-1.png';
 
 import { getUserData, getUserRecipes, handleUpdateAvatar } from './userApi';
 
@@ -17,6 +17,7 @@ export async function handleSubmit( stateProps) {
       setSuccessMessage,
       setSavedRecipes,
       baseURL,
+      setIsProUser,
     } = stateProps;
   
     try {
@@ -24,12 +25,20 @@ export async function handleSubmit( stateProps) {
       const token = response.data.token;
       localStorage.setItem('token', token);
       const data = await getUserData(token, baseURL);
-  
+      console.log(data)
       const recipeArr = await getUserRecipes(data.username, baseURL)
   
       if (!data.profilePicture) {
         console.log("setting Avatar")
         handleUpdateAvatar(stateProps, defaultAvatar)
+      }
+
+      if (data.subscribed === true) {
+        console.log("PRO")
+        setIsProUser(true)
+      } else {
+        console.log("FALSE")
+        setIsProUser(false)
       }
   
       setSavedRecipes(recipeArr)

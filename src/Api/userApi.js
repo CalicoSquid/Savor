@@ -66,3 +66,39 @@ export async function getUserData(token, baseURL) {
       }))
     }
   };
+
+  export async function handleGoPro(baseURL, setUserData, setSuccessMessage, setErrorMessage) {
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.put(
+        `${baseURL}/go-pro`,
+        { subscribed: true },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        const data = await getUserData(token, baseURL);
+        setUserData(data)
+        console.log("success" + data)
+        setSuccessMessage(prevSuccess => ({
+          ...prevSuccess,
+          home: "Thank you! Welcome to Savor Pro!"
+        }))
+      }
+
+    }catch (error) {
+      console.log("error")
+      setErrorMessage(prevError => ({
+        ...prevError,
+        home: {
+          message: "Something went wrong",
+          err: "Something went wrong"
+        }
+      }))
+    }
+  }
