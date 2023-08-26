@@ -56,12 +56,12 @@ export default function Home(props) {
     const recipesToDisplay = filteredRecipes.slice(startIndex, endIndex);
 
     useEffect(() => {
-      const storedDisplayName = localStorage.getItem(`userDisplayName_${userData.username}`);
+      const storedDisplayName = localStorage.getItem(`userDisplayName_${userData?.username}`);
       if (storedDisplayName) {
         setDisplayName(storedDisplayName);
       }
 
-      const storedDarkMode = localStorage.getItem(`userDarkMode_${userData.username}`);
+      const storedDarkMode = localStorage.getItem(`userDarkMode_${userData?.username}`);
     if (storedDarkMode) {
       setDarkMode(storedDarkMode === 'true');
     } else {
@@ -149,7 +149,7 @@ export default function Home(props) {
       handleUpdateRecipe(props.stateProps, currentRecipe);
     }
 
-    if(recipesToDisplay.length === 0 && !showSettings && !prompt) {
+    if(recipesToDisplay.length === 0 && !showSettings && !prompt && !showCreate) {
       return (
         <div className="empty">
           <HomeHead 

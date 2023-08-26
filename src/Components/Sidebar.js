@@ -13,8 +13,6 @@ import dev from "../Assets/dev.png";
 import Instructions from "./Instructions";
 import Ingredients from "./Ingredients";
 
-import HomeHead from "./HomeHead";
-
 export default function Sidebar(props) {
 
     const { 
