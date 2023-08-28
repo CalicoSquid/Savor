@@ -112,10 +112,9 @@ function App() {
     if (isSuccess) {
       window.history.replaceState({}, document.title, newUrl);
       setShowPayment(true)
-      console.log("TRUE??")
       setIsProUser(true)
-      setMessage('Payment Successful! You will receive an email confirmation.');
-      handleGoPro("http://192.168.1.109:8080/api", setUserData, setSuccessMessage, setErrorMessage)
+      setMessage('Payment Successful! Start enjoying Savor Pro now.');
+      handleGoPro(baseURL, setUserData, setSuccessMessage, setErrorMessage)
       
       
     } else if (isCanceled) {
